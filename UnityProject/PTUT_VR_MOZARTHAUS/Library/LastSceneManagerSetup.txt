@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/scene_test.unity
+- path: Assets/Virtual'Haus_NonVR.unity
   isLoaded: 1
   isActive: 1
