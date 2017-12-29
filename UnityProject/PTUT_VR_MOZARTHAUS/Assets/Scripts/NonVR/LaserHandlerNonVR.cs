@@ -1,24 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LaserHandlerNonVR : MonoBehaviour {
-    Mod mod;
-    LineRenderer laserLine;
 
-    // Use this for initialization
+    private Mod mod;
+    private LineRenderer laserLine;
+    private RayCast rayCast;
+
     void Start () {
         mod = ModHandlerNonVR.mod;
         laserLine = this.GetComponent<LineRenderer>();
+        rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
     }
 
-    // Update is called once per frame
     void Update () {
         UpdateMod();
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit))
-            UpdateLaserPos(hit);
+        if (rayCast.Hit())
+            UpdateLaserPos(rayCast.GetHit());
     }
 
 
