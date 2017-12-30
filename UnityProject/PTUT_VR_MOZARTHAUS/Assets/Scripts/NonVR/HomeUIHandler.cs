@@ -6,17 +6,19 @@ using UnityEngine.UI;
 public class HomeUIHandler : MonoBehaviour
 {
     private Mod mod;
+
     private const string CLICKED_TRIGGER_NAME = "PointerTrigger";
     private const string CLICKED_BUTTON_TRIGGER_NAME = "PointerTrigger";
+
     private bool canClick = true;
 
     public GameObject player;
-    public GameObject gameObject;
+
     Vector3 newCameraPos;
 
 
-    RayCast rayCast = new RayCast();
-
+    RayCast rayCast;
+    
 
     public void Start()
     {
@@ -26,19 +28,25 @@ public class HomeUIHandler : MonoBehaviour
     {
 
         UpdateMod();
-        Debug.Log(rayCast);
-        Debug.Log(rayCast.GetHit().collider.gameObject.tag);
+      
 
-        if (IsTriggerClicked() && canClick &&!(mod == Mod.UTILITIES))
-        {
+        if (IsTriggerClicked() && canClick)
+        { 
 
-            if (rayCast.GetHit().collider.gameObject.tag == "MozartHaus")
+            if (rayCast.GetHit().transform.name.ToString() == "MozartHaus")
             {
-                Debug.Log("You have clicked the button!");
                 TeleportToStartPosition(player);
                 canClick = false;
-                mod = Mod.UTILITIES;
-        
+
+                mod = Mod.UTILITIES;        
+            }
+            else if(rayCast.GetHit().transform.name.ToString() == "Appartment")
+            {
+                print("Appartment");
+            }
+            else if(rayCast.GetHit().transform.name.ToString() == "SettingsImport")
+            {
+                print("SettingsImport");
             }
 
         }
@@ -59,9 +67,10 @@ public class HomeUIHandler : MonoBehaviour
 
     void TeleportToStartPosition(GameObject gameObject)
     {
-        newCameraPos.y = 0;
+        newCameraPos.y = (float) 0.574;
         newCameraPos.x = -2;
         newCameraPos.z = (float)-3.555;
         gameObject.transform.position = newCameraPos;
     }
+
 }
