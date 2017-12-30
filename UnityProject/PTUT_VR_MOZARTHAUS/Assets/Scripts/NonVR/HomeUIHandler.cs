@@ -11,25 +11,28 @@ public class HomeUIHandler : MonoBehaviour
     private bool canClick = true;
 
     public GameObject player;
+    public GameObject gameObject;
     Vector3 newCameraPos;
+
 
     RayCast rayCast = new RayCast();
 
 
     public void Start()
     {
-
+        rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
     }
     public void Update()
     {
 
         UpdateMod();
-        Debug.Log(rayCast.Hit());
+        Debug.Log(rayCast);
+        Debug.Log(rayCast.GetHit().collider.gameObject.tag);
 
-        if (IsTriggerClicked())
-        {            
+        if (IsTriggerClicked() && canClick &&!(mod == Mod.UTILITIES))
+        {
 
-            if (!rayCast.Hit() && !(mod == Mod.UTILITIES))
+            if (rayCast.GetHit().collider.gameObject.tag == "MozartHaus")
             {
                 Debug.Log("You have clicked the button!");
                 TeleportToStartPosition(player);
