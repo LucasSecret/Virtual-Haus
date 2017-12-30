@@ -102,7 +102,7 @@ public class Teleportation : MonoBehaviour {
     bool IsTriggerClicked() {
         return (Input.GetAxis(TELEPORTATION_TRIGGER_NAME) == 1);
     }
-    void Teleport(Vector3 hitPosition, Vector3 leftControllerDirection, Vector3 leftControllerPos)
+    public void Teleport(Vector3 hitPosition, Vector3 leftControllerDirection, Vector3 leftControllerPos)
     {
         Vector3 newCameraPos = hitPosition;
         newCameraPos.y = 0;
