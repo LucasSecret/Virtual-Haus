@@ -6,11 +6,14 @@ using UnityEngine.UI;
 public class HomeUIHandler : MonoBehaviour
 {
     private Mod mod;
-    private const string CLICKED_TRIGGER_NAME = "Fire1";
+    private const string CLICKED_TRIGGER_NAME = "PointerTrigger";
+    private const string CLICKED_BUTTON_TRIGGER_NAME = "PointerTrigger";
     private bool canClick = true;
 
     public GameObject player;
     Vector3 newCameraPos;
+
+    RayCast rayCast = new RayCast();
 
 
     public void Start()
@@ -20,17 +23,21 @@ public class HomeUIHandler : MonoBehaviour
     public void Update()
     {
 
-        RaycastHit hit;
-        Ray ray = new Ray(transform.position, transform.forward);
+        UpdateMod();
+        Debug.Log(rayCast.Hit());
 
-        if (IsTriggerClicked() && canClick && mod == Mod.EDITION)
-        {
-            if (Physics.Raycast(ray, out hit, 1000.0f))
+        if (IsTriggerClicked())
+        {            
+
+            if (!rayCast.Hit() && !(mod == Mod.UTILITIES))
             {
-                Teleport
+                Debug.Log("You have clicked the button!");
+                TeleportToStartPosition(player);
                 canClick = false;
                 mod = Mod.UTILITIES;
+        
             }
+
         }
         else if (!IsTriggerClicked())
         {
@@ -40,18 +47,18 @@ public class HomeUIHandler : MonoBehaviour
 
     bool IsTriggerClicked()
     {
-        return (Input.GetAxis(CLICKED_TRIGGER_NAME) == 1);
+        return (Input.GetAxis(CLICKED_TRIGGER_NAME) == 1 || Input.GetButton(CLICKED_BUTTON_TRIGGER_NAME));
     }
     void UpdateMod()
     {
-        this.mod = ModHandler.mod;
+        this.mod = ModHandlerNonVR.mod;
     }
 
-    void TeleportToStartPosition()
+    void TeleportToStartPosition(GameObject gameObject)
     {
         newCameraPos.y = 0;
         newCameraPos.x = -2;
         newCameraPos.z = (float)-3.555;
-        player.transform.position = newCameraPos;
+        gameObject.transform.position = newCameraPos;
     }
 }
