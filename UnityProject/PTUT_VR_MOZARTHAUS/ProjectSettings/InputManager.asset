@@ -374,13 +374,13 @@ InputManager:
     axis: 4
     joyNum: 0
   - serializedVersion: 3
-    m_Name: SwitchMenuButton
+    m_Name: ChangeMenuButton
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: joystick button 2
     altNegativeButton: 
-    altPositiveButton: a
+    altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
