@@ -1,70 +1,57 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class DragFurniture : MonoBehaviour {
 
-    private GameObject controller;
-    private Vector3 controllerPos;
-    private Vector3 controllerDirection;
-
+    private bool isOnDrag = false;
     private GameObject furnitureSelected;
-    private bool onDrag = false;
-    private bool isDragable = true;
 
-    private float nextDrag = 0.0f;
-    private float timeBeforeNextDrag = 1.0f;
+    private RayCast rayCast;
+    private InputManager inputManager;
+    private ModHandler modHandler;
 
-    private const string CURSOR_CONTROLLER_NAME = "PointerController"; // Left Controller
-    private const string EDITION_TRIGGER_NAME = "LeftControllerTrigger";
-
-    Mod mod;
+    private bool canClick = true;
 
     void Start()
     {
-        controller = GameObject.Find(CURSOR_CONTROLLER_NAME);
+        rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
+        inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
+        modHandler = GameObject.Find("ModHandler").GetComponent<ModHandler>();
     }
 
-    // Update is called once per frame
-    void Update () {
-        UpdateMod();
-        UpdateControllerPosAndDirection();
-
-        RaycastHit hit;
-        if (Physics.Raycast(controllerPos, controllerDirection, out hit) && mod == Mod.EDITION)
+    void Update ()
+    {
+        if (modHandler.IsInEditionMod() && rayCast.Hit())
         {
-            if (FurnitureSelected(hit))
+            if (inputManager.IsTriggerClicked() && canClick)
             {
-                furnitureSelected = GameObject.Find(hit.transform.name);
-                furnitureSelected.GetComponent<Collider>().enabled = false;
-                onDrag = true;
-                isDragable = false;
+                if (isOnDrag)
+                {
+                    furnitureSelected.GetComponent<Collider>().enabled = true;
+                    furnitureSelected = null;
+                    isOnDrag = false;
+                    canClick = false;
+                }
+                else if (rayCast.HitFurniture())
+                {
+                    furnitureSelected = GameObject.Find(rayCast.GetHit().transform.name);
+                    furnitureSelected.GetComponent<Collider>().enabled = false;
+                    isOnDrag = true;
+                    canClick = false;
+                }
+            }
+            else if (isOnDrag)
+            {
+                UpdateFurniturePosition(rayCast.GetHit());
             }
 
-            else if (FurnitureDeselected())
+            if (!canClick)
             {
-                onDrag = false;
-                isDragable = true;
-                furnitureSelected.GetComponent<Collider>().enabled = true;
-                furnitureSelected = null;
-            }
-
-            if (onDrag && !IsTriggerClicked())
-            {
-                UpdateFurniturePosition(hit);
+                canClick = !inputManager.IsTriggerClicked();
             }
         }
     }
 
-    void UpdateControllerPosAndDirection()
-    {
-        controllerPos = controller.transform.position;
-        controllerDirection = controller.transform.forward;
-    }
-
-    bool FurnitureSelected(RaycastHit hit) { return hit.transform.tag == "Furniture" && IsTriggerClicked() && isDragable; }
-    bool FurnitureDeselected() { return IsTriggerClicked() && onDrag; }
-
-    void UpdateFurniturePosition(RaycastHit hit)
+    private void UpdateFurniturePosition(RaycastHit hit)
     {
         Vector3 newPos = hit.point;
         newPos.x -= furnitureSelected.transform.localScale.x / 1.5f;
@@ -72,16 +59,5 @@ public class DragFurniture : MonoBehaviour {
         newPos.z += furnitureSelected.transform.localScale.z / 1.5f;
         furnitureSelected.transform.position = newPos;
     }
-
-    void UpdateMod()
-    {
-        mod = ModHandler.mod;
-    }
-
-    bool IsTriggerClicked()
-    {
-        return (Input.GetAxis(EDITION_TRIGGER_NAME) == 1);
-    }
-
 
 }

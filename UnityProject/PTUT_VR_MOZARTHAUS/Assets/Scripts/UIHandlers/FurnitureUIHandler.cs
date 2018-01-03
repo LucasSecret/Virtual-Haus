@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FurnitureMenuHandler : MonoBehaviour {
+public class FurnitureUIHandler : MonoBehaviour {
 
     public GameObject leftSide;
     public GameObject rightSide;
@@ -19,7 +19,7 @@ public class FurnitureMenuHandler : MonoBehaviour {
     private float leftPartUIItemHeight;
     private float rightPartUIItemHeight;
 
-    void Start () {
+    void Start() {
 		scrollViewHeight = scrollView.GetComponent<RectTransform>().rect.height;
         rightSideHeight = rightSide.GetComponent<RectTransform>().rect.height;
 

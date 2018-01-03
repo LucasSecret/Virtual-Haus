@@ -15,6 +15,10 @@ public class RayCast : MonoBehaviour {
     {
         return rayCastHit;
     }
+    public bool HitFurniture()
+    {
+        return hit.transform.tag == "Furniture";
+    }
     
     public RaycastHit GetHit()
     {

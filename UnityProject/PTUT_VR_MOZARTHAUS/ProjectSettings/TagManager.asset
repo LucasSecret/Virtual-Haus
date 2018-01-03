@@ -4,9 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - EndMatchButton
-  - LogoutButton
   - Furniture
+  - Editable
   layers:
   - Default
   - TransparentFX

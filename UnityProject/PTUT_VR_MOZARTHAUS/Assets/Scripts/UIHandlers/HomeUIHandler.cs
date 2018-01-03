@@ -4,50 +4,34 @@ public class HomeUIHandler : MonoBehaviour
 {
     private readonly Vector3 MOZART_HAUS_SPAWN = new Vector3(-2, 0.5f, -3.5f);
 
-    private const string CLICKED_TRIGGER_NAME = "PointerTrigger";
-    private bool canClick = true;
-
     private RayCast rayCast;
+    private InputManager inputManager;
     private GameObject player;
 
 
     public void Start()
     {
         rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
+        inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
         player = GameObject.Find("Player");
     }
 
     public void Update()
     {     
-        if (IsTriggerClicked() && canClick)
+        if (inputManager.IsTriggerClicked() && rayCast.Hit())
         {
-            if (rayCast.Hit())
+            if (rayCast.GetHit().transform.name == "Mozart'Haus")
             {
-                if (rayCast.GetHit().transform.name == "Mozart'Haus")
-                {
-                    player.transform.position = MOZART_HAUS_SPAWN;
-                    canClick = false;
-                }
-                else if (rayCast.GetHit().transform.name == "Appartments")
-                {
-                    print("Appartment");
-                }
-                else if (rayCast.GetHit().transform.name == "SettingsImport")
-                {
-                    print("SettingsImport");
-                }
+                player.transform.position = MOZART_HAUS_SPAWN;
             }
-
-        }
-        else if (!IsTriggerClicked())
-        {
-            canClick = true;
+            else if (rayCast.GetHit().transform.name == "Appartments")
+            {
+                print("Appartment"); // Not Implemented
+            }
+            else if (rayCast.GetHit().transform.name == "SettingsImport")
+            {
+                print("SettingsImport"); // Not Implemented
+            }
         }
     }
-
-    private bool IsTriggerClicked()
-    {
-        return (Input.GetAxis(CLICKED_TRIGGER_NAME) == 1 || Input.GetButton(CLICKED_TRIGGER_NAME));
-    }
-
 }

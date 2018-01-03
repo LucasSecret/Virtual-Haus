@@ -1,35 +1,43 @@
 ﻿using UnityEngine;
 
-public class ModHandler : MonoBehaviour {
+public class ModHandler : MonoBehaviour
+{
+    private static Mod mod = Mod.EDITION;
+    private InputManager inputManager;
 
-    public static Mod mod = Mod.EDITION;
-
-    private static string MENU_CHANGE_BUTTON_NAME = "ChangeMenuButton";
-    private bool canChange = true;
-
-
-	void Update () {
-
-        Debug.Log(mod);
-
-        if (IsModChangeButtonClicked() && canChange)
-        {
-            if (mod == Mod.UTILITIES)
-                mod = Mod.EDITION;
-            else
-                mod = Mod.UTILITIES;
-
-            canChange = false;
-        }
-        else if (!IsModChangeButtonClicked())
-        {
-            canChange = true;
-        }
+    private void Start()
+    {
+        inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
     }
 
-    private bool IsModChangeButtonClicked()
+    void Update()
     {
-        return Input.GetButton(MENU_CHANGE_BUTTON_NAME);
+        if (inputManager.IsModChangeButtonClicked())
+            SwitchMod();
+    }
+
+    private void SwitchMod()
+    {
+        if (mod == Mod.UTILITIES)
+        {
+            mod = Mod.EDITION;
+        }
+        else
+        {
+            mod = Mod.UTILITIES;
+        }
+
+    }
+
+    /* Getter */
+
+    public bool IsInUtilitiesMod()
+    {
+        return mod == Mod.UTILITIES;
+    }
+    public bool IsInEditionMod()
+    {
+        return mod == Mod.EDITION;
     }
 }
 
