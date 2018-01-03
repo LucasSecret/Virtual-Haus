@@ -2,7 +2,7 @@
 
 public class HomeUIHandler : MonoBehaviour
 {
-    private readonly Vector3 MOZART_HAUS_SPAWN = new Vector3(-2, 0.574f, -3.555f);
+    private readonly Vector3 MOZART_HAUS_SPAWN = new Vector3(-2, 0.5f, -3.5f);
 
     private const string CLICKED_TRIGGER_NAME = "PointerTrigger";
     private bool canClick = true;
@@ -23,12 +23,12 @@ public class HomeUIHandler : MonoBehaviour
         {
             if (rayCast.Hit())
             {
-                if (rayCast.GetHit().transform.name == "MozartHaus")
+                if (rayCast.GetHit().transform.name == "Mozart'Haus")
                 {
                     player.transform.position = MOZART_HAUS_SPAWN;
                     canClick = false;
                 }
-                else if (rayCast.GetHit().transform.name == "Appartment")
+                else if (rayCast.GetHit().transform.name == "Appartments")
                 {
                     print("Appartment");
                 }
