@@ -31,10 +31,6 @@ GameObject:
   - component: {fileID: 8100000}
   - component: {fileID: 12474086}
   - component: {fileID: 120462922886640328}
-  - component: {fileID: 114871542055802698}
-  - component: {fileID: 114634229682564550}
-  - component: {fileID: 114786470815046392}
-  - component: {fileID: 114994603279641630}
   m_Layer: 0
   m_Name: FirstPersonCharacter
   m_TagString: MainCamera
@@ -373,40 +369,6 @@ Transform:
   m_Father: {fileID: 400000}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114634229682564550
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4aacdd3952975345a6a1704b2e72613, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 100000}
---- !u!114 &114786470815046392
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 695e7926906f57b4a9389ca0ae7efd0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114871542055802698
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46b91ed8742d1ae42a7279e53eb426ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114954632901598948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -419,17 +381,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 100002}
---- !u!114 &114994603279641630
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bd0ac097f1cccd49bf239920547da16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!120 &120462922886640328
 LineRenderer:
   m_ObjectHideFlags: 1
