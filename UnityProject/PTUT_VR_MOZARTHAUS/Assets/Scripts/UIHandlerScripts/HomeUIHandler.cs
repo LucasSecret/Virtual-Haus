@@ -1,43 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class HomeUIHandler : MonoBehaviour
 {
-    private const string CLICKED_TRIGGER_NAME = "PointerTrigger";
+    private readonly Vector3 MOZART_HAUS_SPAWN = new Vector3(-2, 0.574f, -3.555f);
 
+    private const string CLICKED_TRIGGER_NAME = "PointerTrigger";
     private bool canClick = true;
 
-    public GameObject player;
-    private Vector3 mozartHausSpawn;
     private RayCast rayCast;
-    
+    private GameObject player;
+
 
     public void Start()
     {
         rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
+        player = GameObject.Find("Player");
     }
 
     public void Update()
     {     
-
         if (IsTriggerClicked() && canClick)
         {
-            if (rayCast.GetHit().transform.name != null)
+            if (rayCast.Hit())
             {
-
-                if (rayCast.GetHit().transform.name.ToString() == "MozartHaus")
+                if (rayCast.GetHit().transform.name == "MozartHaus")
                 {
-                    TeleportToStartPosition(player);
+                    player.transform.position = MOZART_HAUS_SPAWN;
                     canClick = false;
-
                 }
-                else if (rayCast.GetHit().transform.name.ToString() == "Appartment")
+                else if (rayCast.GetHit().transform.name == "Appartment")
                 {
                     print("Appartment");
                 }
-                else if (rayCast.GetHit().transform.name.ToString() == "SettingsImport")
+                else if (rayCast.GetHit().transform.name == "SettingsImport")
                 {
                     print("SettingsImport");
                 }
@@ -53,13 +48,6 @@ public class HomeUIHandler : MonoBehaviour
     private bool IsTriggerClicked()
     {
         return (Input.GetAxis(CLICKED_TRIGGER_NAME) == 1 || Input.GetButton(CLICKED_TRIGGER_NAME));
-    }
-
-    private void TeleportToStartPosition(GameObject gameObject)
-    {
-        mozartHausSpawn.Set((float)-2, (float)0.574, (float)-3.555);
-        gameObject.transform.position = mozartHausSpawn;
-       
     }
 
 }
