@@ -19,6 +19,12 @@ public class RayCast : MonoBehaviour {
     {
         return hit.transform.tag == "Furniture";
     }
+
+    public bool HitMoveFurnitureButton()
+    {
+        
+        return hit.transform.name == "MoveButton";
+    }
     
     public RaycastHit GetHit()
     {

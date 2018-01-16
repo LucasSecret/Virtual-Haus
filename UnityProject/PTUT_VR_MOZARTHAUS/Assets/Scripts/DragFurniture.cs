@@ -28,7 +28,8 @@ public class DragFurniture : MonoBehaviour {
         {
             if (inputManager.IsTriggerClicked() && canClick)
             {
-                if ((isOnDrag || isClicked) && !rayCast.HitFurniture())
+                
+                if ((isOnDrag || isClicked) && !rayCast.HitFurniture() && !rayCast.HitMoveFurnitureButton())
                 {
                     furnitureSelected.GetComponent<Collider>().enabled = true;
                     furnitureSelected = null;
@@ -47,14 +48,16 @@ public class DragFurniture : MonoBehaviour {
                     DrawFurnitureUI();
                 }
 
-                else if (rayCast.HitFurniture() && isClicked && !isOnDrag)
+                else if (rayCast.HitMoveFurnitureButton() && isClicked && !isOnDrag)
                 {
+                    
                     isOnDrag = true;
                     furnitureSelected.GetComponent<Collider>().enabled = false;
                     DestroyFurniturePlan();
                     DestroyFurnitureUI();
                     canClick = false;
                 }
+               
             }
             else if (isOnDrag)
             {
@@ -91,8 +94,8 @@ public class DragFurniture : MonoBehaviour {
     {
         Vector3 newpos = new Vector3(furnitureSelected.transform.position.x, 2,
                                     furnitureSelected.transform.position.z);
-        //furnitureUI.GetComponent<RectTransform>().anchoredPosition3D = newpos;
         furnitureUI.GetComponent<RectTransform>().SetPositionAndRotation(newpos, furnitureSelected.transform.rotation);
+        furnitureUI.GetComponent<RectTransform>().LookAt(rayCast.source.transform);
         instanciatedUI =  Instantiate(furnitureUI);
     }
 
