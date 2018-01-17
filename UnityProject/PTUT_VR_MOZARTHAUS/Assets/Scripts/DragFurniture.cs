@@ -92,9 +92,10 @@ public class DragFurniture : MonoBehaviour {
     }
     private void DrawFurnitureUI()
     {
-        Vector3 newpos = new Vector3(furnitureSelected.transform.position.x, 2,
+        Vector3 newpos = new Vector3(furnitureSelected.transform.position.x, 
+                                    furnitureSelected.transform.localScale.y,
                                     furnitureSelected.transform.position.z);
-        furnitureUI.GetComponent<RectTransform>().SetPositionAndRotation(newpos, furnitureSelected.transform.rotation);
+        furnitureUI.GetComponent<RectTransform>().anchoredPosition3D = newpos;      
         furnitureUI.GetComponent<RectTransform>().LookAt(rayCast.source.transform);
         instanciatedUI =  Instantiate(furnitureUI);
     }
