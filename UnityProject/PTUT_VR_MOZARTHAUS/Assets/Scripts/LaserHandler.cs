@@ -33,7 +33,7 @@ public class LaserHandler : MonoBehaviour
     private void UpdateLaserPos(RaycastHit hit)
     {
         laserLine.SetPosition(1, hit.point);
-        laserLine.SetPosition(0, new Vector3(transform.position.x + 0.01f, transform.position.y, transform.position.z - 0.1f));
+        laserLine.SetPosition(0, new Vector3(transform.position.x, transform.position.y, transform.position.z));
 
         UpdateLaserColor();
     }

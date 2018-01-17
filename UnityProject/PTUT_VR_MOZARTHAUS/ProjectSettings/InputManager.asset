@@ -170,7 +170,7 @@ InputManager:
     descriptiveName: Used to change between Utilities & Edition mod
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: joystick button 2
+    positiveButton: joystick button 0
     altNegativeButton: 
     altPositiveButton: a
     gravity: 1000
@@ -195,5 +195,5 @@ InputManager:
     snap: 1
     invert: 0
     type: 2
-    axis: 8
+    axis: 9
     joyNum: 0
