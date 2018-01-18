@@ -14,6 +14,8 @@ public class FurnitureUIHandler : MonoBehaviour {
     public GameObject leftPartUIItem;
     public GameObject rightPartUIItem;
 
+    private InputManager inputManager;
+
     private float scrollViewHeight;
     private float rightSideHeight;
     private float leftPartUIItemHeight;
@@ -26,12 +28,16 @@ public class FurnitureUIHandler : MonoBehaviour {
         leftPartUIItemHeight = leftPartUIItem.GetComponent<RectTransform>().rect.height;
         rightPartUIItemHeight = rightPartUIItem.GetComponent<RectTransform>().rect.height;
 
+        inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
+
         CreateUI();
     }
 
 
     void Update()
     {
+        Vector2 trackpadPos = inputManager.GetMenuTrackpadPos();
+        Debug.Log(trackpadPos);
         Scroll();
     }
 
