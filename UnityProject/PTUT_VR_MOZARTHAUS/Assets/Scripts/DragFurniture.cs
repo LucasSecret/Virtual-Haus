@@ -60,4 +60,11 @@ public class DragFurniture : MonoBehaviour {
         furnitureSelected.transform.position = newPos;
     }
 
+    public void SelectObject(GameObject gameObject)
+    {
+        furnitureSelected = gameObject;
+        furnitureSelected.GetComponent<Collider>().enabled = false;
+        isOnDrag = true;
+    }
+
 }
