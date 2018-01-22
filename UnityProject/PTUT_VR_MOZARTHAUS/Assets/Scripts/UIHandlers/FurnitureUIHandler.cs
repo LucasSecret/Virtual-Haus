@@ -27,38 +27,6 @@ public class FurnitureUIHandler : MonoBehaviour {
     private float rightPartUIItemHeight;
 
 
-    /// <summary>
-    /// For Test
-    /// </summary>
-
-    private static readonly Vector2 DEFAULT_TRACKPAD_POSITION = new Vector2(0, 0);
-    private Vector2 previousMenuTrackpadPosition = DEFAULT_TRACKPAD_POSITION;
-
-
-    private void TestRotation()
-    {
-        Vector2 trackpadPos = inputManager.GetMenuTrackpadPos();
-
-        if (trackpadPos == DEFAULT_TRACKPAD_POSITION)
-            return;
-
-        if (previousMenuTrackpadPosition == DEFAULT_TRACKPAD_POSITION)
-        {
-            previousMenuTrackpadPosition = trackpadPos;
-            return;
-        }
-
-        double rotationAngle = GetTrackpadAngle(trackpadPos);
-    }
-
-    private double GetTrackpadAngle(Vector2 trackpadPos)
-    {
-        return (360 + (Math.Acos(trackpadPos.x) * Mathf.Rad2Deg + Math.Asin(trackpadPos.y) * Mathf.Rad2Deg) / 2) % 360;
-    }
-
-
-
-
     void Start() {
 		scrollViewHeight = scrollView.GetComponent<RectTransform>().rect.height;
         rightSideHeight = rightSide.GetComponent<RectTransform>().rect.height;
@@ -77,9 +45,6 @@ public class FurnitureUIHandler : MonoBehaviour {
 
     void Update()
     {
-
-        TestRotation();
-
         Scroll();
     }
 
@@ -91,7 +56,6 @@ public class FurnitureUIHandler : MonoBehaviour {
             {
                 Transform hitObject = rayCast.GetHit().transform;
 
-                Debug.Log(hitObject.parent);
                 if (hitObject.parent == leftSide.transform)
                 {
                     UpdateRightUIPart(hitObject.GetSiblingIndex());

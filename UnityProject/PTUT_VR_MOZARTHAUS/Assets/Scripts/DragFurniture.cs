@@ -18,7 +18,7 @@ public class DragFurniture : MonoBehaviour {
         modHandler = GameObject.Find("ModHandler").GetComponent<ModHandler>();
     }
 
-    void Update ()
+    void Update()
     {
         if (modHandler.IsInEditionMod() && rayCast.Hit())
         {
@@ -65,6 +65,15 @@ public class DragFurniture : MonoBehaviour {
         furnitureSelected = gameObject;
         furnitureSelected.GetComponent<Collider>().enabled = false;
         isOnDrag = true;
+    }
+
+    public bool IsFurnitureSelected()
+    {
+        return furnitureSelected != null;
+    }
+    public GameObject GetFurnitureSelected()
+    {
+        return furnitureSelected;
     }
 
 }
