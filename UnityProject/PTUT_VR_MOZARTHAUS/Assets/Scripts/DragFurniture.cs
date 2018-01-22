@@ -29,7 +29,7 @@ public class DragFurniture : MonoBehaviour {
             if (inputManager.IsTriggerClicked() && canClick)
             {
                 
-                if ((isOnDrag || isClicked) && !rayCast.HitFurniture() && !rayCast.HitMoveFurnitureButton())
+                if ((isOnDrag || isClicked) && !rayCast.HitFurniture() && !rayCast.HitMoveFurnitureButton() && !rayCast.HitRemoveFurnitureButton())
                 {
                     furnitureSelected.GetComponent<Collider>().enabled = true;
                     furnitureSelected = null;
@@ -37,7 +37,7 @@ public class DragFurniture : MonoBehaviour {
                     isOnDrag = false;
                     canClick = false;
                     DestroyFurniturePlan();
-                    DestroyFurnitureUI();
+                    DestroyFurnitureUI();                
                 }
                 else if (rayCast.HitFurniture() && !isClicked)
                 {
@@ -50,14 +50,23 @@ public class DragFurniture : MonoBehaviour {
 
                 else if (rayCast.HitMoveFurnitureButton() && isClicked && !isOnDrag)
                 {
-                    
                     isOnDrag = true;
-                    furnitureSelected.GetComponent<Collider>().enabled = false;
+                    //furnitureSelected.GetComponent<Collider>().enabled = false;
+                    furnitureSelected.layer = 2;
                     DestroyFurniturePlan();
                     DestroyFurnitureUI();
                     canClick = false;
                 }
-               
+
+                else if (rayCast.HitRemoveFurnitureButton() && isClicked && !isOnDrag)
+                {
+                    Debug.Log("Remove");
+                    furnitureSelected.transform.position = new Vector3(0, -20, 0);
+                    DestroyFurniturePlan();
+                    DestroyFurnitureUI();
+                    canClick = false;
+                }
+
             }
             else if (isOnDrag)
             {
@@ -74,7 +83,7 @@ public class DragFurniture : MonoBehaviour {
     private void UpdateFurniturePosition(RaycastHit hit)
     {
         Vector3 newPos = hit.point;
-        newPos.x -= (furnitureSelected.transform.localScale.x / 1.5f);
+        newPos.x += furnitureSelected.transform.localScale.x * hit.transform.right.x / Mathf.Abs(hit.transform.right.x);
         newPos.y = furnitureSelected.transform.localScale.y / 2;
         newPos.z += furnitureSelected.transform.localScale.z * hit.transform.forward.z/Mathf.Abs(hit.transform.forward.z);
         furnitureSelected.transform.position = newPos;
@@ -92,11 +101,12 @@ public class DragFurniture : MonoBehaviour {
     }
     private void DrawFurnitureUI()
     {
-        Vector3 newpos = new Vector3(furnitureSelected.transform.position.x, 
-                                    furnitureSelected.transform.localScale.y,
-                                    furnitureSelected.transform.position.z);
-        furnitureUI.GetComponent<RectTransform>().anchoredPosition3D = newpos;      
+        furnitureUI.GetComponent<RectTransform>().anchoredPosition3D = furnitureSelected.transform.position;  
         furnitureUI.GetComponent<RectTransform>().LookAt(rayCast.source.transform);
+        Vector3 newpos = furnitureSelected.transform.position + (furnitureUI.transform.forward - 0.5f * furnitureUI.transform.right);
+        newpos.y = 0.5f;
+        furnitureUI.GetComponent<RectTransform>().anchoredPosition3D = newpos;
+
         instanciatedUI =  Instantiate(furnitureUI);
     }
 

@@ -1207,6 +1207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7f458eefda43f498c0276248e19c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  furnitureUI: {fileID: 1073139269247238, guid: 3274434744eebee4eb46153b4fea67d7,
+    type: 2}
 --- !u!1001 &753345216
 Prefab:
   m_ObjectHideFlags: 0
