@@ -5,21 +5,22 @@ public class DragFurniture : MonoBehaviour {
     private bool isOnDrag = false;
     private bool isClicked = false;
     private GameObject furnitureSelected;
-    private GameObject planOfFurnitureSelected;
 
+    private MovableUIHandler movableUIHandler;
     private RayCast rayCast;
     private InputManager inputManager;
     private ModHandler modHandler;
 
     private bool canClick = true;
 
-    public GameObject furnitureUI;
-    private GameObject instanciatedUI;
+    public GameObject furnitureUI; //Stock the prefab UI passed in parameters
+    private GameObject instanciatedUI; //Stock the instanciated UI
     void Start()
     {
         rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
         modHandler = GameObject.Find("ModHandler").GetComponent<ModHandler>();
+        movableUIHandler = Resources.Load("Scripts/MovableUIHandler") as MovableUIHandler;
     }
 
     void Update ()
@@ -28,41 +29,43 @@ public class DragFurniture : MonoBehaviour {
         {
             if (inputManager.IsTriggerClicked() && canClick)
             {
-                
-                if ((isOnDrag || isClicked) && !rayCast.HitFurniture() && !rayCast.HitMoveFurnitureButton() && !rayCast.HitRemoveFurnitureButton())
+                //If user click outside of UI and Furniture is selected or is being dragged 
+                if ((isOnDrag || isClicked) && !rayCast.HitFurniture() && !movableUIHandler.HitMoveFurnitureButton() && !movableUIHandler.HitRemoveFurnitureButton())
                 {
+                    //Deselect object and destroy UI
                     furnitureSelected.GetComponent<Collider>().enabled = true;
                     furnitureSelected = null;
                     isClicked = false;
                     isOnDrag = false;
                     canClick = false;
-                    DestroyFurniturePlan();
                     DestroyFurnitureUI();                
                 }
+                
+                //If furniture isn't selected and user click on it
                 else if (rayCast.HitFurniture() && !isClicked)
                 {
+                    //Get GO selected and draw UI
                     furnitureSelected = GameObject.Find(rayCast.GetHit().transform.name);
                     isClicked = true;
                     canClick = false;
-                    DrawFurniturePlan();
                     DrawFurnitureUI();
                 }
 
-                else if (rayCast.HitMoveFurnitureButton() && isClicked && !isOnDrag)
+                //If user click on MoveButton
+                else if (movableUIHandler.HitMoveFurnitureButton() && isClicked && !isOnDrag)
                 {
+                    //Move furniture and destroy UI
                     isOnDrag = true;
-                    //furnitureSelected.GetComponent<Collider>().enabled = false;
                     furnitureSelected.layer = 2;
-                    DestroyFurniturePlan();
                     DestroyFurnitureUI();
                     canClick = false;
                 }
 
-                else if (rayCast.HitRemoveFurnitureButton() && isClicked && !isOnDrag)
+                //If user click on RemoveButton
+                else if (movableUIHandler.HitRemoveFurnitureButton() && isClicked && !isOnDrag)
                 {
                     Debug.Log("Remove");
                     furnitureSelected.transform.position = new Vector3(0, -20, 0);
-                    DestroyFurniturePlan();
                     DestroyFurnitureUI();
                     canClick = false;
                 }
@@ -75,7 +78,7 @@ public class DragFurniture : MonoBehaviour {
 
             if (!canClick)
             {
-                canClick = !inputManager.IsTriggerClicked();
+                canClick = !inputManager.IsTriggerClicked(); //Avoid double click
             }
         }
     }
@@ -89,16 +92,7 @@ public class DragFurniture : MonoBehaviour {
         furnitureSelected.transform.position = newPos;
     }
 
-    private void DrawFurniturePlan()
-    {
-        planOfFurnitureSelected = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Vector3 pos = furnitureSelected.GetComponent<Collider>().bounds.center;
-        pos.y = 0.1f;
-        planOfFurnitureSelected.transform.position = pos;
-        planOfFurnitureSelected.transform.rotation = furnitureSelected.transform.rotation;
-        planOfFurnitureSelected.transform.localScale = new Vector3(furnitureSelected.transform.localScale.x * 1.5f, 0.01f, furnitureSelected.transform.localScale.x * 1.5f);
-        planOfFurnitureSelected.GetComponent<Renderer>().material.color = Color.green;
-    }
+   
     private void DrawFurnitureUI()
     {
         furnitureUI.GetComponent<RectTransform>().anchoredPosition3D = furnitureSelected.transform.position;  
@@ -113,12 +107,5 @@ public class DragFurniture : MonoBehaviour {
     private void DestroyFurnitureUI()
     {
         Destroy(instanciatedUI);
-    }
-
-
-    private void DestroyFurniturePlan()
-    {
-        if(planOfFurnitureSelected != null)
-            GameObject.Destroy(planOfFurnitureSelected);
     }
 }

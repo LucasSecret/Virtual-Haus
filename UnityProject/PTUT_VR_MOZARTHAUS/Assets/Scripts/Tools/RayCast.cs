@@ -20,18 +20,6 @@ public class RayCast : MonoBehaviour {
         return hit.transform.tag == "Furniture";
     }
 
-    public bool HitMoveFurnitureButton()
-    {
-        
-        return hit.transform.name == "MoveButton";
-    }
-
-    public bool HitRemoveFurnitureButton()
-    {
-
-        return hit.transform.name == "RemoveButton";
-    }
-
     public RaycastHit GetHit()
     {
         return hit;
