@@ -25,6 +25,8 @@ public class FurnitureUIHandler_Collision : MonoBehaviour {
     private float leftPartUIItemHeight;
     private float rightPartUIItemHeight;
 
+    private double scrollStack;
+
 
     void Start()
     {
@@ -38,6 +40,8 @@ public class FurnitureUIHandler_Collision : MonoBehaviour {
         modHandler = GameObject.Find("ModHandler").GetComponent<ModHandler>();
         rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
         dragFurniture = GameObject.Find("EditionHandler").GetComponent<DragFurniture>();
+
+        scrollStack = 0;
 
         CreateUI();
     }

@@ -26,6 +26,8 @@ public class FurnitureUIHandler_Pointer : MonoBehaviour {
     private float leftPartUIItemHeight;
     private float rightPartUIItemHeight;
 
+    private double scrollStack;
+
 
     void Start() {
 		scrollViewHeight = scrollView.GetComponent<RectTransform>().rect.height;
@@ -39,6 +41,8 @@ public class FurnitureUIHandler_Pointer : MonoBehaviour {
         rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
         dragFurniture = GameObject.Find("EditionHandler").GetComponent<DragFurniture>();
 
+        scrollStack = 0;
+
         CreateUI();
     }
 
@@ -51,9 +55,12 @@ public class FurnitureUIHandler_Pointer : MonoBehaviour {
 
     private void Scroll()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        scrollStack += inputManager.GetTrackpadHandler().GetMenuTrackpadRotationOffset();
+        if (Mathf.Abs((float)scrollStack) >= 3)
         {
-            if (rightSide.GetComponent<RectTransform>().anchoredPosition.y > 0)
+            scrollStack = 0;
+
+            if (scrollStack > 0)
             {
                 Vector2 pos = rightSide.GetComponent<RectTransform>().anchoredPosition;
                 pos.y -= 0.1f;
@@ -63,10 +70,7 @@ public class FurnitureUIHandler_Pointer : MonoBehaviour {
 
                 rightSide.GetComponent<RectTransform>().anchoredPosition = pos;
             }
-        }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (scrollViewHeight + rightSide.GetComponent<RectTransform>().rect.y < rightSideHeight)
+            else
             {
                 Vector2 pos = rightSide.GetComponent<RectTransform>().anchoredPosition;
                 pos.y += 0.1f;
