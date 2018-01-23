@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FurnitureUIHandler : MonoBehaviour {
+public class FurnitureUIHandler_Pointer : MonoBehaviour {
 
     public GameObject leftSide;
     public GameObject rightSide;
@@ -46,30 +46,11 @@ public class FurnitureUIHandler : MonoBehaviour {
     void Update()
     {
         Scroll();
+        Select();
     }
 
     private void Scroll()
     {
-        if (modHandler.IsInEditionMod() && inputManager.IsTriggerClicked())
-        {
-            if (rayCast.Hit())
-            {
-                Transform hitObject = rayCast.GetHit().transform;
-
-                if (hitObject.parent == leftSide.transform)
-                {
-                    UpdateRightUIPart(hitObject.GetSiblingIndex());
-                }
-                else if (hitObject.parent == rightSide.transform)
-                {
-                    dragFurniture.SelectObject(GameObject.Find((rayCast.GetHit().transform.GetChild(0).GetComponent<Text>().text)));
-                }
-            }
-        }
-
-
-
-
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (rightSide.GetComponent<RectTransform>().anchoredPosition.y > 0)
@@ -97,7 +78,25 @@ public class FurnitureUIHandler : MonoBehaviour {
             }
         }
     }
+    private void Select()
+    {
+        if (modHandler.IsInEditionMod() && inputManager.IsTriggerClicked())
+        {
+            if (rayCast.Hit())
+            {
+                Transform hitObject = rayCast.GetHit().transform;
 
+                if (hitObject.parent == leftSide.transform)
+                {
+                    UpdateRightUIPart(hitObject.GetSiblingIndex());
+                }
+                else if (hitObject.parent == rightSide.transform)
+                {
+                    dragFurniture.SelectObject(GameObject.Find((rayCast.GetHit().transform.GetChild(0).GetComponent<Text>().text)));
+                }
+            }
+        }
+    }
 
     private void CreateUI()
     {
