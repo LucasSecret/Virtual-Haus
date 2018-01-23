@@ -13,12 +13,13 @@ public class FurnitureUIHandler_Trackpad : MonoBehaviour {
     public GameObject leftPartUIItem;
     public GameObject rightPartUIItem;
 
+    public GameObject selectedImagePrefab;
+    private GameObject selectedImageInstance;
 
     private InputManager inputManager;
     private ModHandler modHandler;
     private RayCast rayCast;
     private DragFurniture dragFurniture;
-
 
     private float scrollViewHeight;
     private float rightSideHeight;
@@ -48,40 +49,51 @@ public class FurnitureUIHandler_Trackpad : MonoBehaviour {
         leftPartUIIndex = 0;
         scrollStack = 0;
 
+        selectedImageInstance = Instantiate(selectedImagePrefab);
+
         CreateUI();
     }
 
 
     void Update()
     {
-        Scroll();
+        // Scroll();
         Select();
     }
 
     private void Scroll()
     {
         scrollStack += inputManager.GetTrackpadHandler().GetMenuTrackpadRotationOffset();
-        if (scrollStack >= 3) // Is Value correct ? 
+
+        if (Mathf.Abs((float)scrollStack) >= 3)
         {
-            scrollStack = 0;
-            if (rightPartUISelectorPosition.x == 1)
+            if (scrollStack < -200 || scrollStack > 0) // test if scrollStack < -200 for gap issues when angle go from 360 to 0
             {
-                rightPartUISelectorPosition.x = 0;
-                rightPartUISelectorPosition.y++;
+                if (rightPartUISelectorPosition.x == 1)
+                {
+                    rightPartUISelectorPosition.x = 0;
+                    rightPartUISelectorPosition.y++;
+                }
+                else
+                {
+                    rightPartUISelectorPosition.x++;
+                }
+
+                if (rightPartUISelectorPosition.y * 2 - (1 - rightPartUISelectorPosition.x) > furnitureQuantity)
+                {
+                    rightPartUISelectorPosition.x = furnitureQuantity % 2;
+                    rightPartUISelectorPosition.y = furnitureQuantity / 2 - 1;
+                }
             }
             else
             {
-                rightPartUISelectorPosition.x++;
+                // Do stuff
             }
 
-            if (rightPartUISelectorPosition.y * 2 - (1 - rightPartUISelectorPosition.x) > furnitureQuantity)
-            {
-                rightPartUISelectorPosition.x = furnitureQuantity % 2;
-                rightPartUISelectorPosition.y = furnitureQuantity / 2 - 1;
+            // Update cadre
+            // Scroll ui
 
-                // Update cadre
-                // Scroll ui
-            }
+            scrollStack = 0;
         }
     }
     private void Select()
@@ -118,7 +130,7 @@ public class FurnitureUIHandler_Trackpad : MonoBehaviour {
         }
 
         Transform room = furnitures.transform.GetChild(index);
-        furnitureQuantity = room.childCount;
+        int furnitureQuantity = room.childCount;
 
         Vector2 size = rightSide.GetComponent<RectTransform>().sizeDelta;
         rightSideHeight = size.y = furnitureQuantity / 2 + furnitureQuantity % 2;
@@ -127,9 +139,13 @@ public class FurnitureUIHandler_Trackpad : MonoBehaviour {
         for (int i = 0; i < furnitureQuantity; i++)
         {
             GameObject temp = Instantiate(rightPartUIItem, rightSide.transform);
+            if (i == 0)
+            {
+                selectedImageInstance.transform.parent = temp.transform;
+            }
 
             Vector2 position = temp.GetComponent<RectTransform>().anchoredPosition;
-            position.y -= rightPartUIItemHeight * ((int)i / 2);
+            position.y -= rightPartUIItemHeight * ((int)i / 2) + 1;
             temp.GetComponent<RectTransform>().anchoredPosition = position;
 
             if (i % 2 == 1)

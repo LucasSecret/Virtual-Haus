@@ -56,11 +56,10 @@ public class FurnitureUIHandler_Pointer : MonoBehaviour {
     private void Scroll()
     {
         scrollStack += inputManager.GetTrackpadHandler().GetMenuTrackpadRotationOffset();
+
         if (Mathf.Abs((float)scrollStack) >= 3)
         {
-            scrollStack = 0;
-
-            if (scrollStack > 0)
+            if (scrollStack < -200 || scrollStack > 0) // test if scrollStack < -200 for gap issues when angle go from 360 to 0
             {
                 Vector2 pos = rightSide.GetComponent<RectTransform>().anchoredPosition;
                 pos.y -= 0.1f;
@@ -80,6 +79,8 @@ public class FurnitureUIHandler_Pointer : MonoBehaviour {
 
                 rightSide.GetComponent<RectTransform>().anchoredPosition = pos;
             }
+
+            scrollStack = 0;
         }
     }
     private void Select()
@@ -138,7 +139,7 @@ public class FurnitureUIHandler_Pointer : MonoBehaviour {
             GameObject temp = Instantiate(rightPartUIItem, rightSide.transform);
 
             Vector2 position = temp.GetComponent<RectTransform>().anchoredPosition;
-            position.y -= rightPartUIItemHeight * ((int) i / 2);
+            position.y -= rightPartUIItemHeight * ((int) i / 2) + 1;
             temp.GetComponent<RectTransform>().anchoredPosition = position;
 
             if (i % 2 == 1)

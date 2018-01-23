@@ -26,7 +26,7 @@ public class TrackpadHandler : MonoBehaviour {
     }
 	
 	void Update () {
-        // UpdateTrackpadRotationOffset(GetMenuTrackpadPos(), ref previousMenuTrackpadAngle, ref menuTrackpadRotationOffset);
+        UpdateTrackpadRotationOffset(GetMenuTrackpadPos(), ref previousMenuTrackpadAngle, ref menuTrackpadRotationOffset);
         UpdateTrackpadRotationOffset(GetPointerTrackpadPos(), ref previousPointerTrackpadAngle, ref pointerTrackpadRotationOffset);
     }
 
