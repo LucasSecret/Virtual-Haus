@@ -44,11 +44,4 @@ public class MovableUIHandler : MonoBehaviour {
             return (rayCast.GetHit().transform.name == "RemoveButton" && inputManager.IsTriggerClicked());
         return false;
     }
-
-    /*public bool HitFurnitureUI()
-    {   
-        if(rayCast.Hit())
-            return (rayCast.GetHit().transform.name == "RemoveButton" || rayCast.GetHit().transform.name == "MoveButton");
-        return false;
-    }*/
 }
