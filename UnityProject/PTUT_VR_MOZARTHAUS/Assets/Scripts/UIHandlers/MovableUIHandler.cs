@@ -4,27 +4,51 @@ using UnityEngine;
 
 public class MovableUIHandler : MonoBehaviour {
 
-    private RaycastHit rayCastHit;
-	// Use this for initialization
-	void Start () {
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        rayCastHit = GameObject.Find("PointerController").GetComponent<RayCast>().GetHit();
+    private RayCast rayCast;
+    private DragFurniture dragFurniture;
+    private InputManager inputManager;
+
+    void Start () {
+        dragFurniture = GameObject.Find("EditionHandler").GetComponent<DragFurniture>();
+        inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
+        rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
     }
 
-    public bool HitMoveFurnitureButton()
+    private void Awake()
     {
-
-        return rayCastHit.transform.name == "MoveButton";
+        inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
+        rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
     }
 
-    public bool HitRemoveFurnitureButton()
+    void Update () {
+       
+        if (ClickMoveFurnitureButton())
+            dragFurniture.MoveSelectedObject();
+
+        else if (ClickRemoveFurnitureButton())
+            dragFurniture.HideSelectedObject();
+    }
+
+    
+
+    private bool ClickMoveFurnitureButton()
     {
-
-        return rayCastHit.transform.name == "RemoveButton";
+        if(rayCast.Hit())
+            return (rayCast.GetHit().transform.name == "MoveButton" && inputManager.IsTriggerClicked());
+        return false;
     }
 
+    private bool ClickRemoveFurnitureButton()
+    {
+        if(rayCast.Hit())
+            return (rayCast.GetHit().transform.name == "RemoveButton" && inputManager.IsTriggerClicked());
+        return false;
+    }
+
+    /*public bool HitFurnitureUI()
+    {   
+        if(rayCast.Hit())
+            return (rayCast.GetHit().transform.name == "RemoveButton" || rayCast.GetHit().transform.name == "MoveButton");
+        return false;
+    }*/
 }
