@@ -12,22 +12,21 @@ public class ModHandler : MonoBehaviour
 
     void Update()
     {
-        if (inputManager.IsModChangeButtonClicked())
-            SwitchMod();
-    }
+        Vector2 menuTrackPadPos = inputManager.GetTrackpadHandler().GetMenuTrackpadPos();
 
-    private void SwitchMod()
-    {
-        if (mod == Mod.UTILITIES)
+        if (menuTrackPadPos.x < 0 && menuTrackPadPos.y < 0)
         {
-            mod = Mod.EDITION;
+            mod = Mod.REMOVE;
         }
-        else
+        else if (menuTrackPadPos.x > 0 && menuTrackPadPos.y < 0)
         {
             mod = Mod.UTILITIES;
         }
-
-    }
+        else
+        { 
+            mod = Mod.EDITION;
+        }
+    }    
 
     /* Getter */
 
@@ -44,5 +43,6 @@ public class ModHandler : MonoBehaviour
 public enum Mod
 {
     UTILITIES,
-    EDITION
+    EDITION,
+    REMOVE
 }
