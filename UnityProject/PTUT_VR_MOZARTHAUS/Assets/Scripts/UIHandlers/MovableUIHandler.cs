@@ -1,47 +1,42 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MovableUIHandler : MonoBehaviour {
 
     private RayCast rayCast;
-    private DragFurniture dragFurniture;
     private InputManager inputManager;
 
+    private DragFurniture dragFurniture;
+
     void Start () {
-        dragFurniture = GameObject.Find("EditionHandler").GetComponent<DragFurniture>();
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
         rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
+
+        dragFurniture = GameObject.Find("EditionHandler").GetComponent<DragFurniture>();
     }
 
-    private void Awake()
+    void Awake()
     {
-        inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
         rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
+        inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
     }
 
     void Update () {
-       
-        if (ClickMoveFurnitureButton())
+        if (MoveButtonClicked())
+        {
             dragFurniture.MoveSelectedObject();
-
-        else if (ClickRemoveFurnitureButton())
+        }
+        else if (RemoveButtonClicked())
+        {
             dragFurniture.HideSelectedObject();
+        }
     }
 
-    
-
-    private bool ClickMoveFurnitureButton()
+    private bool MoveButtonClicked()
     {
-        if(rayCast.Hit())
-            return (rayCast.GetHit().transform.name == "MoveButton" && inputManager.IsTriggerClicked());
-        return false;
+        return rayCast.Hit() && (rayCast.GetHit().transform.name == "MoveButton" && inputManager.IsTriggerClicked());
     }
-
-    private bool ClickRemoveFurnitureButton()
+    private bool RemoveButtonClicked()
     {
-        if(rayCast.Hit())
-            return (rayCast.GetHit().transform.name == "RemoveButton" && inputManager.IsTriggerClicked());
-        return false;
+        return rayCast.Hit() && (rayCast.GetHit().transform.name == "RemoveButton" && inputManager.IsTriggerClicked());
     }
 }
