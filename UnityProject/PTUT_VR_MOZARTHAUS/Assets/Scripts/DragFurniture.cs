@@ -127,4 +127,8 @@ public class DragFurniture : MonoBehaviour {
     {
         return furnitureSelected;
     }
+    public bool CanClick()
+    {
+        return canClick;
+    }
 }
