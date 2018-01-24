@@ -7,6 +7,8 @@ public class HomeUIHandler : MonoBehaviour
     private RayCast rayCast;
     private InputManager inputManager;
     private GameObject player;
+    private TeleportUI teleportUI;
+    private GameObject homeUI;
 
 
     public void Start()
@@ -14,10 +16,17 @@ public class HomeUIHandler : MonoBehaviour
         rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
         player = GameObject.Find("Player");
+        teleportUI = GameObject.Find("UITeleportation").GetComponent<TeleportUI>();
+        homeUI = GameObject.Find("MainMenu");
+        teleportUI.DisplayMovableUIInFrontOfPlayer(homeUI);
+
+
+
     }
 
     public void Update()
-    {     
+    {
+        teleportUI.DisplayMovableUIInFrontOfPlayer(homeUI);
         if (inputManager.IsTriggerClicked() && rayCast.Hit())
         {
             if (rayCast.GetHit().transform.name == "Mozart'Haus")
