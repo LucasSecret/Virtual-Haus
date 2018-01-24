@@ -26,6 +26,8 @@ public class FurnitureUIHandler : MonoBehaviour {
     private float leftPartUIItemHeight;
     private float rightPartUIItemHeight;
 
+    private double scrollStack;
+
 
     void Start() {
 		scrollViewHeight = scrollView.GetComponent<RectTransform>().rect.height;
@@ -39,6 +41,8 @@ public class FurnitureUIHandler : MonoBehaviour {
         rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
         dragFurniture = GameObject.Find("EditionHandler").GetComponent<DragFurniture>();
 
+        scrollStack = 0;
+
         CreateUI();
     }
 
@@ -46,9 +50,41 @@ public class FurnitureUIHandler : MonoBehaviour {
     void Update()
     {
         Scroll();
+        Select();
     }
 
     private void Scroll()
+    {
+        scrollStack += inputManager.GetTrackpadHandler().GetMenuTrackpadRotationOffset();
+
+        if (Mathf.Abs((float)scrollStack) >= 3)
+        {
+            if (scrollStack < -200 || scrollStack > 0) // test if scrollStack < -200 for gap issues when angle go from 360 to 0
+            {
+                Vector2 pos = rightSide.GetComponent<RectTransform>().anchoredPosition;
+                pos.y -= 0.1f;
+
+                if (pos.y < 0)
+                    pos.y = 0;
+
+                rightSide.GetComponent<RectTransform>().anchoredPosition = pos;
+            }
+            else
+            {
+                Vector2 pos = rightSide.GetComponent<RectTransform>().anchoredPosition;
+                pos.y += 0.1f;
+
+                if (scrollViewHeight + pos.y > rightSideHeight)
+                    pos.y = rightSideHeight - scrollViewHeight;
+
+                rightSide.GetComponent<RectTransform>().anchoredPosition = pos;
+            }
+
+            scrollStack = 0;
+        }
+    }
+
+    private void Select()
     {
         if (modHandler.IsInEditionMod() && inputManager.IsTriggerClicked())
         {
@@ -64,36 +100,6 @@ public class FurnitureUIHandler : MonoBehaviour {
                 {
                     dragFurniture.SelectObject(GameObject.Find((rayCast.GetHit().transform.GetChild(0).GetComponent<Text>().text)));
                 }
-            }
-        }
-
-
-
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (rightSide.GetComponent<RectTransform>().anchoredPosition.y > 0)
-            {
-                Vector2 pos = rightSide.GetComponent<RectTransform>().anchoredPosition;
-                pos.y -= 0.1f;
-
-                if (pos.y < 0)
-                    pos.y = 0;
-
-                rightSide.GetComponent<RectTransform>().anchoredPosition = pos;
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (scrollViewHeight + rightSide.GetComponent<RectTransform>().rect.y < rightSideHeight)
-            {
-                Vector2 pos = rightSide.GetComponent<RectTransform>().anchoredPosition;
-                pos.y += 0.1f;
-
-                if (scrollViewHeight + pos.y > rightSideHeight)
-                    pos.y = rightSideHeight - scrollViewHeight;
-
-                rightSide.GetComponent<RectTransform>().anchoredPosition = pos;
             }
         }
     }
