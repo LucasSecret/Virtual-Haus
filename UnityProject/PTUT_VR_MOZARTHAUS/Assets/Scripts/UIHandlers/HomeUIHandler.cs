@@ -17,7 +17,7 @@ public class HomeUIHandler : MonoBehaviour
     }
 
     public void Update()
-    {     
+    {
         if (inputManager.IsTriggerClicked() && rayCast.Hit())
         {
             if (rayCast.GetHit().transform.name == "Mozart'Haus")
