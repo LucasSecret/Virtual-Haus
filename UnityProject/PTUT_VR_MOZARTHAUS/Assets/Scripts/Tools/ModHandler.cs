@@ -12,21 +12,41 @@ public class ModHandler : MonoBehaviour
 
     void Update()
     {
-        Vector2 menuTrackPadPos = inputManager.GetTrackpadHandler().GetMenuTrackpadPos();
-
-        if (menuTrackPadPos.x < 0 && menuTrackPadPos.y < 0)
+        if (inputManager.GetTrackpadHandler().IsMenuTrackpadClicked())
         {
-            mod = Mod.REMOVE;
+            Vector2 menuTrackPadPos = inputManager.GetTrackpadHandler().GetMenuTrackpadPos();
+
+            if (menuTrackPadPos.x < 0 && menuTrackPadPos.y < 0)
+            {
+                mod = Mod.REMOVE;
+            }
+            else if (menuTrackPadPos.x > 0 && menuTrackPadPos.y < 0)
+            {
+                mod = Mod.UTILITIES;
+            }
+            else
+            {
+                mod = Mod.EDITION;
+            }
         }
-        else if (menuTrackPadPos.x > 0 && menuTrackPadPos.y < 0)
+
+        UpdateForNonVR();
+    }    
+    private void UpdateForNonVR()
+    {
+        if (Input.GetKey(KeyCode.I))
+        {
+            mod = Mod.EDITION;
+        }
+        else if (Input.GetKey(KeyCode.O))
         {
             mod = Mod.UTILITIES;
         }
-        else
-        { 
-            mod = Mod.EDITION;
+        else if (Input.GetKey(KeyCode.P))
+        {
+            mod = Mod.REMOVE;
         }
-    }    
+    }
 
     /* Getter */
 

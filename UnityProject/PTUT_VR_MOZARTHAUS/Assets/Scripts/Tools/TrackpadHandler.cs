@@ -8,6 +8,7 @@ public class TrackpadHandler : MonoBehaviour {
     private static readonly string MENU_TRACKPAD_Y_NAME = "MenuControllerTrackpadY";
     private static readonly string POINTER_TRACKPAD_X_NAME = "PointerControllerTrackpadX";
     private static readonly string POINTER_TRACKPAD_Y_NAME = "PointerControllerTrackpadY";
+    private static readonly string MENU_TRACKPAD_BUTTON_NAME = "MenuControllerTrackpadButton";
 
     private static readonly Vector2 DEFAULT_TRACKPAD_POSITION = new Vector2(0, 0);
 
@@ -66,6 +67,11 @@ public class TrackpadHandler : MonoBehaviour {
 
     
     // PUBLIC Interface
+
+    public bool IsMenuTrackpadClicked()
+    {
+        return Input.GetButton(MENU_TRACKPAD_BUTTON_NAME);
+    }
 
     public Vector2 GetMenuTrackpadPos()
     {
