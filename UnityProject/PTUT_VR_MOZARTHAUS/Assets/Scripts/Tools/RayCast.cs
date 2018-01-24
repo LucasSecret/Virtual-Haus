@@ -6,8 +6,7 @@ public class RayCast : MonoBehaviour {
  
     private RaycastHit hit;
     private bool rayCastHit;
-
- 
+  
     void Update () {
         rayCastHit = Physics.Raycast(source.transform.position, source.transform.forward, out hit);
     }
@@ -16,11 +15,12 @@ public class RayCast : MonoBehaviour {
     {
         return rayCastHit;
     }
+	
     public bool HitFurniture()
     {
         return hit.transform.tag == "Furniture";
     }
-    
+
     public RaycastHit GetHit()
     {
         return hit;
