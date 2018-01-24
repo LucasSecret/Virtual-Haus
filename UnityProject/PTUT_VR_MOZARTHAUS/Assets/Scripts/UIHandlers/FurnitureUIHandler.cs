@@ -14,10 +14,18 @@ public class FurnitureUIHandler : MonoBehaviour {
     public GameObject leftPartUIItem;
     public GameObject rightPartUIItem;
 
+
+    private InputManager inputManager;
+    private ModHandler modHandler;
+    private RayCast rayCast;
+    private DragFurniture dragFurniture;
+
+
     private float scrollViewHeight;
     private float rightSideHeight;
     private float leftPartUIItemHeight;
     private float rightPartUIItemHeight;
+
 
     void Start() {
 		scrollViewHeight = scrollView.GetComponent<RectTransform>().rect.height;
@@ -25,6 +33,11 @@ public class FurnitureUIHandler : MonoBehaviour {
 
         leftPartUIItemHeight = leftPartUIItem.GetComponent<RectTransform>().rect.height;
         rightPartUIItemHeight = rightPartUIItem.GetComponent<RectTransform>().rect.height;
+
+        inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
+        modHandler = GameObject.Find("ModHandler").GetComponent<ModHandler>();
+        rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
+        dragFurniture = GameObject.Find("EditionHandler").GetComponent<DragFurniture>();
 
         CreateUI();
     }
@@ -37,6 +50,26 @@ public class FurnitureUIHandler : MonoBehaviour {
 
     private void Scroll()
     {
+        if (modHandler.IsInEditionMod() && inputManager.IsTriggerClicked())
+        {
+            if (rayCast.Hit())
+            {
+                Transform hitObject = rayCast.GetHit().transform;
+
+                if (hitObject.parent == leftSide.transform)
+                {
+                    UpdateRightUIPart(hitObject.GetSiblingIndex());
+                }
+                else if (hitObject.parent == rightSide.transform)
+                {
+                    dragFurniture.SelectObject(GameObject.Find((rayCast.GetHit().transform.GetChild(0).GetComponent<Text>().text)));
+                }
+            }
+        }
+
+
+
+
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (rightSide.GetComponent<RectTransform>().anchoredPosition.y > 0)
@@ -47,7 +80,6 @@ public class FurnitureUIHandler : MonoBehaviour {
                 if (pos.y < 0)
                     pos.y = 0;
 
-                rightSide.GetComponent<RectTransform>().anchoredPosition = pos;
                 rightSide.GetComponent<RectTransform>().anchoredPosition = pos;
             }
         }
@@ -86,6 +118,11 @@ public class FurnitureUIHandler : MonoBehaviour {
     }
     private void UpdateRightUIPart(int index)
     {
+        foreach (Transform child in rightSide.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
         Transform room = furnitures.transform.GetChild(index);
         int furnitureQuantity = room.childCount;
 
@@ -106,6 +143,10 @@ public class FurnitureUIHandler : MonoBehaviour {
                 Vector2 pivot = temp.GetComponent<RectTransform>().pivot;
                 pivot.x = -1;
                 temp.GetComponent<RectTransform>().pivot = pivot;
+
+                Vector3 center = temp.GetComponent<BoxCollider>().center;
+                center.x += 1;
+                temp.GetComponent<BoxCollider>().center = center;
             }
 
             temp.GetComponentInChildren<Text>().text = room.GetChild(i).name;

@@ -27,7 +27,7 @@ public class DragFurniture : MonoBehaviour {
         canClick = true;
     }
 
-    void Update ()
+    void Update()
     {
         if (modHandler.IsInEditionMod() && rayCast.Hit())
         {
@@ -117,5 +117,14 @@ public class DragFurniture : MonoBehaviour {
         newPos.y = furnitureSelected.transform.localScale.y / 2;
 
         furnitureSelected.transform.position = newPos;
+    }
+
+    public bool IsFurnitureSelected()
+    {
+        return furnitureSelected != null;
+    }
+    public GameObject GetFurnitureSelected()
+    {
+        return furnitureSelected;
     }
 }

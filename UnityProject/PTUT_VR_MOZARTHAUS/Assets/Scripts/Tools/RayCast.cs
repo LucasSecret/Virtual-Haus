@@ -6,7 +6,7 @@ public class RayCast : MonoBehaviour {
  
     private RaycastHit hit;
     private bool rayCastHit;
-	
+  
     void Update () {
         rayCastHit = Physics.Raycast(source.transform.position, source.transform.forward, out hit);
     }
