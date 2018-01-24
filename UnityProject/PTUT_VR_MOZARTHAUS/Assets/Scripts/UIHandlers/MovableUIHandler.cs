@@ -7,36 +7,36 @@ public class MovableUIHandler : MonoBehaviour {
 
     private DragFurniture dragFurniture;
 
-    void Start () {
+    void Start() {
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
         rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
-
         dragFurniture = GameObject.Find("EditionHandler").GetComponent<DragFurniture>();
     }
 
-    void Awake()
-    {
-        rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
-        inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
-    }
-
     void Update () {
-        if (MoveButtonClicked())
+        if (inputManager.IsTriggerClicked() && rayCast.Hit())
         {
-            dragFurniture.MoveSelectedObject();
-        }
-        else if (RemoveButtonClicked())
-        {
-            dragFurniture.HideSelectedObject();
+            if (HitMoveButton())
+            {
+                dragFurniture.MakeSelectedObjectMovable();
+            }
+            else if (HitRemoveButton())
+            {
+                dragFurniture.RemoveSelectedObject();
+            }
         }
     }
 
-    private bool MoveButtonClicked()
+    private bool HitMoveButton()
     {
-        return rayCast.Hit() && (rayCast.GetHit().transform.name == "MoveButton" && inputManager.IsTriggerClicked());
+        return (rayCast.GetHit().transform.name == "MoveButton");
     }
-    private bool RemoveButtonClicked()
+    private bool HitRemoveButton()
     {
-        return rayCast.Hit() && (rayCast.GetHit().transform.name == "RemoveButton" && inputManager.IsTriggerClicked());
+        return (rayCast.GetHit().transform.name == "RemoveButton");
+    }
+    public bool HitMovableUI()
+    {
+        return HitMoveButton() || HitRemoveButton();
     }
 }

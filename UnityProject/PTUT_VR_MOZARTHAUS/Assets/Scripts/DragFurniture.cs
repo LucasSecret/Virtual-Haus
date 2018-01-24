@@ -2,25 +2,29 @@
 
 public class DragFurniture : MonoBehaviour {
 
-    private bool isOnDrag = false;
-    private bool isClicked = false;
-    private GameObject furnitureSelected;
-
-    private MovableUIHandler movableUIHandler;
     private RayCast rayCast;
     private InputManager inputManager;
     private ModHandler modHandler;
 
+    public GameObject movableUI;
+    private MovableUIHandler movableUIHandler;
+
+    private GameObject furnitureSelected;
+
+    private bool isOnDrag = false;
+    private bool isClicked = false;
     private bool canClick = true;
 
-    public GameObject furnitureUI; //Stock the prefab UI passed in parameters
-    private GameObject instanciatedUI; //Stock the instanciated UI
+
     void Start()
     {
         rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
         modHandler = GameObject.Find("ModHandler").GetComponent<ModHandler>();
-        movableUIHandler = furnitureUI.GetComponent<MovableUIHandler>();
+        movableUIHandler = movableUI.GetComponent<MovableUIHandler>();
+
+        isOnDrag = isClicked = false;
+        canClick = true;
     }
 
     void Update ()
@@ -29,97 +33,89 @@ public class DragFurniture : MonoBehaviour {
         {
             if (inputManager.IsTriggerClicked() && canClick)
             {
-                
-                //If furniture is selected and user click outside of UI 
-                if (isClicked && !isOnDrag && !(rayCast.GetHit().transform.name == "RemoveButton") && !(rayCast.GetHit().transform.name == "MoveButton"))
-                {
-                    isClicked = false;
-                    DestroyFurnitureUI();
-                }
+                canClick = false;
 
-                else if(isOnDrag)
+                if (rayCast.HitFurniture() && !isClicked) // Select Game Object
                 {
-                    //Deselect object
+                    furnitureSelected = GameObject.Find(rayCast.GetHit().transform.name);
+                    DisplayMovableUIInFrontOfFurniture();
+
+                    isClicked = true;
+                }
+                else if (isClicked && !isOnDrag && !movableUIHandler.HitMovableUI()) // UnSelect Game Object
+                {
+                    DestroyMovableUI();
+
+                    isClicked = false;
+                }
+                else if(isOnDrag) // Place Game Object
+                {
                     furnitureSelected.GetComponent<Collider>().enabled = true;
                     furnitureSelected = null;
-                    isClicked = false;
-                    isOnDrag = false;
-                    canClick = false;
-                }
 
-                //If furniture isn't selected and user click on it
-                else if (rayCast.HitFurniture() && !isClicked)
-                {
-                    //Get GO selected and draw UI
-                    furnitureSelected = GameObject.Find(rayCast.GetHit().transform.name);
-                    isClicked = true;
-                    canClick = false;
-                    DrawFurnitureUI();
+                    isClicked = isOnDrag = false;
                 }
+               
             }
-
-            else if (isOnDrag)
+            if (isOnDrag) // Move Game Object
             {
                 UpdateFurniturePosition(rayCast.GetHit());
             }
 
             if (!canClick)
             {
-                canClick = !inputManager.IsTriggerClicked(); //Avoid double click
+                canClick = !inputManager.IsTriggerClicked();
             }
         }
     }
 
-    private void UpdateFurniturePosition(RaycastHit hit)
+    private void DisplayMovableUIInFrontOfFurniture()
     {
-        Vector3 newPos = hit.point;
-        newPos.x += furnitureSelected.transform.localScale.x * (hit.transform.right.x / Mathf.Abs(hit.transform.right.x));
-        newPos.y = furnitureSelected.transform.localScale.y / 2;
-        newPos.z += furnitureSelected.transform.localScale.z * (hit.transform.forward.z/Mathf.Abs(hit.transform.forward.z));
-        furnitureSelected.transform.position = newPos;
-    }
+        movableUI.GetComponent<RectTransform>().anchoredPosition3D = furnitureSelected.transform.position;
+        movableUI.GetComponent<RectTransform>().LookAt(rayCast.source.transform);
 
-   
-    private void DrawFurnitureUI()
-    {
-        furnitureUI.GetComponent<RectTransform>().anchoredPosition3D = furnitureSelected.transform.position;  
-        furnitureUI.GetComponent<RectTransform>().LookAt(rayCast.source.transform);
-        Vector3 newpos = furnitureSelected.transform.position + (furnitureUI.transform.forward - 0.5f * furnitureUI.transform.right);
+        Vector3 newpos = furnitureSelected.transform.position + (movableUI.transform.forward - 0.5f * movableUI.transform.right);
         newpos.y = 0.5f;
-        furnitureUI.GetComponent<RectTransform>().anchoredPosition3D = newpos;
 
-        instanciatedUI =  Instantiate(furnitureUI);
+        movableUI.GetComponent<RectTransform>().anchoredPosition3D = newpos;
     }
-
-    private void DestroyFurnitureUI()
+    private void DestroyMovableUI()
     {
-        Destroy(instanciatedUI);
+        movableUI.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(0, -40, 0);
     }
 
     public void SelectObject(GameObject gameObject)
     {
         furnitureSelected = gameObject;
         furnitureSelected.GetComponent<Collider>().enabled = false;
+
         isOnDrag = true;
         canClick = false;
     }
+    public void RemoveSelectedObject()
+    {
+        furnitureSelected.transform.position = new Vector3(0, -50, 0);
+        furnitureSelected.GetComponent<Collider>().enabled = true;
+        furnitureSelected = null;
 
-    public void MoveSelectedObject()
+        isClicked = false;
+
+        DestroyMovableUI();
+    }
+    public void MakeSelectedObjectMovable()
     {
         furnitureSelected.GetComponent<Collider>().enabled = false;
         isOnDrag = true;
-        DestroyFurnitureUI();
         canClick = false;
+
+        DestroyMovableUI();
     }
 
-    public void HideSelectedObject()
+    private void UpdateFurniturePosition(RaycastHit hit)
     {
-        furnitureSelected.GetComponent<Collider>().enabled = true;
-        furnitureSelected.transform.position = new Vector3(0,-50,0);
-        furnitureSelected = null;
-        isClicked = false;
-        DestroyFurnitureUI();
-        canClick = false;
+        Vector3 newPos = hit.point;
+        newPos.y = furnitureSelected.transform.localScale.y / 2;
 
+        furnitureSelected.transform.position = newPos;
     }
 }

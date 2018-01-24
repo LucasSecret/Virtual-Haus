@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114740987225275118}
   - component: {fileID: 114894367323203136}
   m_Layer: 5
-  m_Name: EditFurnitureUI
+  m_Name: MovableUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -463,8 +463,8 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1073139269247238}
-  m_LocalRotation: {x: -0.13678294, y: -0.75331694, z: -0.16578138, w: 0.6215469}
-  m_LocalPosition: {x: -6.1501427, y: 0.5, z: 3.5910685}
+  m_LocalRotation: {x: -0.1538772, y: -0.4682507, z: -0.08319188, w: 0.8661075}
+  m_LocalPosition: {x: -6.7506523, y: 0.5, z: 4.0351386}
   m_LocalScale: {x: 0.01, y: 0.01, z: 1}
   m_Children:
   - {fileID: 224514033516531064}
@@ -474,7 +474,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -12.816001, y: -232.908, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6.1501417, y: 0.5}
+  m_AnchoredPosition: {x: -6.750651, y: 0.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224748522504026676
