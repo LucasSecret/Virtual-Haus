@@ -18,10 +18,10 @@ public class TrackpadHandler : MonoBehaviour {
     private float menuTrackpadRotationOffset;
 
     void Start () {
-        previousMenuTrackpadAngle = null;
+        previousMenuTrackpadAngle = 0;
         menuTrackpadRotationOffset = 0;
 
-        previousPointerTrackpadAngle = null;
+        previousPointerTrackpadAngle = 0;
         pointerTrackpadRotationOffset = 0;
     }
 	
