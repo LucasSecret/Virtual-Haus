@@ -64,16 +64,17 @@ public class TrackpadHandler : MonoBehaviour {
         }
     }
 
-    private Vector2 GetMenuTrackpadPos()
+    
+    // PUBLIC Interface
+
+    public Vector2 GetMenuTrackpadPos()
     {
         return new Vector2(Input.GetAxis(MENU_TRACKPAD_X_NAME), Input.GetAxis(MENU_TRACKPAD_Y_NAME));
     }
-    private Vector2 GetPointerTrackpadPos()
+    public Vector2 GetPointerTrackpadPos()
     {
         return new Vector2(Input.GetAxis(POINTER_TRACKPAD_X_NAME), Input.GetAxis(POINTER_TRACKPAD_Y_NAME));
     }
-
-    // PUBLIC Interface
 
     public float GetMenuTrackpadRotationOffset()
     {
