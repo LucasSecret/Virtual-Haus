@@ -22,20 +22,8 @@ public class RotateFurniture : MonoBehaviour {
 	void Update() {
         if (dragFurniture.IsFurnitureSelected())
         {
+            Debug.Log(inputManager.GetTrackpadHandler().GetPointerTrackpadRotationOffset());
             dragFurniture.GetFurnitureSelected().transform.Rotate(new Vector3(0, 0, inputManager.GetTrackpadHandler().GetPointerTrackpadRotationOffset()));
-        }
-    }
-
-    private float GetTrackpadAngle(Vector2 trackpadPos)
-    {
-        trackpadPos.Normalize();
-        if (trackpadPos.y <= 0)
-        {
-            return (Mathf.Acos(trackpadPos.x) * Mathf.Rad2Deg);
-        }
-        else
-        {
-            return 360 - (Mathf.Acos(trackpadPos.x) * Mathf.Rad2Deg);
         }
     }
 }
