@@ -49,7 +49,7 @@ public class FurnitureUIHandler : MonoBehaviour {
 
     void Update()
     {
-        Scroll();
+       // Scroll();
         Select();
     }
 
