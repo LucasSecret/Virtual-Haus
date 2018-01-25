@@ -2,12 +2,13 @@
 
 public class ModHandler : MonoBehaviour
 {
-    private static Mod mod = Mod.EDITION;
+    private Mod mod;
     private InputManager inputManager;
 
     private void Start()
     {
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
+        mod = Mod.EDITION;
     }
 
     void Update()
@@ -15,7 +16,6 @@ public class ModHandler : MonoBehaviour
         if (inputManager.GetTrackpadHandler().IsMenuTrackpadClicked())
         {
             Vector2 menuTrackPadPos = inputManager.GetTrackpadHandler().GetMenuTrackpadPos();
-            Debug.Log(menuTrackPadPos);
             if (menuTrackPadPos.x < 0 && menuTrackPadPos.y < 0)
             {
                 mod = Mod.REMOVE;
@@ -30,7 +30,7 @@ public class ModHandler : MonoBehaviour
             }
         }
 
-        // UpdateForNonVR();
+        UpdateForNonVR();
     }    
     private void UpdateForNonVR()
     {
