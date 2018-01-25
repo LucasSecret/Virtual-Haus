@@ -85,8 +85,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4361815547312732}
+  - component: {fileID: 65828115064079774}
   m_Layer: 0
-  m_Name: Prefab_1
+  m_Name: SoftWoodTable1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1241,3 +1242,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1423457189900224}
   m_Mesh: {fileID: 4300010, guid: 8222257967954ff40b31bcb6e01864b5, type: 3}
+--- !u!65 &65828115064079774
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1350710143498690}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.15, y: 0.5, z: 0.7}
+  m_Center: {x: 0, y: 0.25, z: 0}
