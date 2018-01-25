@@ -2627,6 +2627,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b5f2e450f4a914d4f8114fcf8892a48c, type: 2}
+    - target: {fileID: 100012, guid: e70a87e2482bb5a44840e985b1d797e1, type: 3}
+      propertyPath: m_Name
+      value: wardrobe
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e70a87e2482bb5a44840e985b1d797e1, type: 3}
   m_IsPrefabParent: 0
@@ -2994,6 +2998,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1686926544}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1755389903 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100012, guid: e70a87e2482bb5a44840e985b1d797e1, type: 3}
+  m_PrefabInternal: {fileID: 1507305176}
+--- !u!65 &1755389904
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1755389903}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0971184, y: 2.150916, z: 1}
+  m_Center: {x: -0.04855919, y: 1.0512378, z: 0}
 --- !u!1 &1760069856
 GameObject:
   m_ObjectHideFlags: 0
