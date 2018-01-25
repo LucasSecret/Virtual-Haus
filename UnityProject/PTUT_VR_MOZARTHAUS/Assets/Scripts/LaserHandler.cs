@@ -43,9 +43,13 @@ public class LaserHandler : MonoBehaviour
         {
             laserLine.GetComponent<Renderer>().material.color = Color.blue;
         }
-        else
+        else if (modHandler.IsInUtilitiesMod())
         {
             laserLine.GetComponent<Renderer>().material.color = Color.green;
+        }
+        else
+        {
+            laserLine.GetComponent<Renderer>().material.color = Color.red;
         }
     }
 }

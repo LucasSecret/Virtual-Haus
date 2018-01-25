@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 4445857850876716}
   - component: {fileID: 95254529560930250}
   m_Layer: 0
-  m_Name: DisplayCabinet
+  m_Name: GoldSofa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
