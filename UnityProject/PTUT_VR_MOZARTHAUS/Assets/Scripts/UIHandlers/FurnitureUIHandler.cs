@@ -141,7 +141,7 @@ public class FurnitureUIHandler : MonoBehaviour {
             GameObject temp = Instantiate(rightPartUIItem, rightSide.transform);
 
             Vector2 position = temp.GetComponent<RectTransform>().anchoredPosition;
-            position.y -= rightPartUIItemHeight * ((int) i / 2) - 1;
+            position.y -= rightPartUIItemHeight * ((int) i / 2) + 0.5f;
             temp.GetComponent<RectTransform>().anchoredPosition = position;
 
             if (i % 2 == 1)
