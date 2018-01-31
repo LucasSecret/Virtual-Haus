@@ -2,7 +2,7 @@
 
 public class HomeUIHandler : MonoBehaviour
 {
-    private readonly Vector3 MOZART_HAUS_SPAWN = new Vector3(-2, 0.5f, -3.5f);
+    private readonly Vector3 MOZART_HAUS_SPAWN = new Vector3(-2, 0, -3.5f);
 
     private static Vector2 MOZART_HAUS_MENU_BUTTON_POSITION;
     private static Vector2 APPARTEMENTS_MENU_BUTTON_POSITION;
@@ -32,7 +32,7 @@ public class HomeUIHandler : MonoBehaviour
     public void Update()
     {
         selecter.SetActive(false);
-
+        
         if (rayCast.Hit())
         {
             if (rayCast.GetHit().transform.name == "MozartHausMenuButton")
@@ -42,7 +42,7 @@ public class HomeUIHandler : MonoBehaviour
                 
                 if (inputManager.IsTriggerClicked())
                 {
-                    player.transform.position = MOZART_HAUS_SPAWN;
+                    TeleportToMozartHaus();
                 }
             }
             else if (rayCast.GetHit().transform.name == "AppartementsMenuButton")
@@ -60,5 +60,16 @@ public class HomeUIHandler : MonoBehaviour
                 //todo implement function when IsTriggerClicked() == true
             }
         }
+    }
+
+    /// <summary>
+    /// Teleport Player To MozartHaus (ignore y position)
+    /// </summary>
+    public void TeleportToMozartHaus()
+    {
+        Vector3 newPlayerPosition = MOZART_HAUS_SPAWN;
+        newPlayerPosition.y = player.transform.position.y;
+
+        player.transform.position = newPlayerPosition;
     }
 }

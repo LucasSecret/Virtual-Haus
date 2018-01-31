@@ -2,31 +2,50 @@
 
 public class ModHandler : MonoBehaviour
 {
-    private static Mod mod = Mod.EDITION;
+    private Mod mod;
     private InputManager inputManager;
 
     private void Start()
     {
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
+        mod = Mod.EDITION;
     }
 
     void Update()
     {
-        if (inputManager.IsModChangeButtonClicked())
-            SwitchMod();
-    }
+        if (inputManager.GetTrackpadHandler().IsMenuTrackpadClicked())
+        {
+            Vector2 menuTrackPadPos = inputManager.GetTrackpadHandler().GetMenuTrackpadPos();
+            if (menuTrackPadPos.x < 0 && menuTrackPadPos.y < 0)
+            {
+                mod = Mod.REMOVE;
+            }
+            else if (menuTrackPadPos.x > 0 && menuTrackPadPos.y < 0)
+            {
+                mod = Mod.UTILITIES;
+            }
+            else
+            {
+                mod = Mod.EDITION;
+            }
+        }
 
-    private void SwitchMod()
+        UpdateForNonVR();
+    }    
+    private void UpdateForNonVR()
     {
-        if (mod == Mod.UTILITIES)
+        if (Input.GetKey(KeyCode.I))
         {
             mod = Mod.EDITION;
         }
-        else
+        else if (Input.GetKey(KeyCode.O))
         {
             mod = Mod.UTILITIES;
         }
-
+        else if (Input.GetKey(KeyCode.P))
+        {
+            mod = Mod.REMOVE;
+        }
     }
 
     /* Getter */
@@ -44,5 +63,6 @@ public class ModHandler : MonoBehaviour
 public enum Mod
 {
     UTILITIES,
-    EDITION
+    EDITION,
+    REMOVE
 }

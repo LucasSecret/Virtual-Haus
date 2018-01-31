@@ -7,6 +7,20 @@ public class InputManager : MonoBehaviour {
     private static readonly string MOD_CHANGE_BUTTON_NAME = "ChangeModButton";
     private static readonly string CLICKED_TRIGGER_NAME = "PointerTrigger";
 
+    private TrackpadHandler trackpadHandler;
+
+    void Update()
+    {
+        trackpadHandler = GameObject.Find("InputManager").GetComponent<TrackpadHandler>();
+    }
+
+    // PUBLIC Interface
+
+    public TrackpadHandler GetTrackpadHandler()
+    {
+        return trackpadHandler;
+    }
+
     public bool IsModChangeButtonClicked()
     {
         return Input.GetButtonDown(MOD_CHANGE_BUTTON_NAME);
