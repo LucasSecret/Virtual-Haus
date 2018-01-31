@@ -7,8 +7,6 @@ public class InputManager : MonoBehaviour {
     private static readonly string MOD_CHANGE_BUTTON_NAME = "ChangeModButton";
     private static readonly string CLICKED_TRIGGER_NAME = "PointerTrigger";
 
-    private static readonly Vector2 DEFAULT_TRACKPAD_POSITION = new Vector2(0, 0);
-
     private TrackpadHandler trackpadHandler;
 
     void Update()
