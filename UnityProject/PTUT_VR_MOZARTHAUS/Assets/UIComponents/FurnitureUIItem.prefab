@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 223171818092679128}
   - component: {fileID: 114135322984001496}
   - component: {fileID: 114216536531773810}
+  - component: {fileID: 65699018225518356}
   m_Layer: 5
   m_Name: FurnitureUIItem
   m_TagString: Untagged
@@ -63,6 +64,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &65699018225518356
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1132395230059024}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 0.01}
+  m_Center: {x: 0.5, y: 0.5, z: 0}
 --- !u!114 &114135322984001496
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -198,7 +211,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1225653016265814}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.099999905, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.5999999, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 224629910128684034}
@@ -216,7 +229,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1206224424604828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -0.375, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.125, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 224629910128684034}
@@ -246,4 +259,4 @@ RectTransform:
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: -0.5}
   m_SizeDelta: {x: 1, y: 1}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 0, y: 0}

@@ -2,7 +2,7 @@
 
 public class HomeUIHandler : MonoBehaviour
 {
-    private readonly Vector3 MOZART_HAUS_SPAWN = new Vector3(-2, 0.5f, -3.5f);
+    private readonly Vector3 MOZART_HAUS_SPAWN = new Vector3(-2, 0, -3.5f);
 
     private RayCast rayCast;
     private InputManager inputManager;
@@ -17,12 +17,12 @@ public class HomeUIHandler : MonoBehaviour
     }
 
     public void Update()
-    {     
+    {
         if (inputManager.IsTriggerClicked() && rayCast.Hit())
         {
             if (rayCast.GetHit().transform.name == "Mozart'Haus")
             {
-                player.transform.position = MOZART_HAUS_SPAWN;
+                TeleportToMozartHaus();
             }
             else if (rayCast.GetHit().transform.name == "Appartments")
             {
@@ -33,5 +33,16 @@ public class HomeUIHandler : MonoBehaviour
                 print("SettingsImport"); // Not Implemented
             }
         }
+    }
+
+    /// <summary>
+    /// Teleport Player To MozartHaus (ignore y position)
+    /// </summary>
+    public void TeleportToMozartHaus()
+    {
+        Vector3 newPlayerPosition = MOZART_HAUS_SPAWN;
+        newPlayerPosition.y = player.transform.position.y;
+
+        player.transform.position = newPlayerPosition;
     }
 }
