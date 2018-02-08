@@ -58,6 +58,10 @@ public class ModHandler : MonoBehaviour
     {
         return mod == Mod.EDITION;
     }
+    public bool IsInRemoveMod()
+    {
+        return mod == Mod.REMOVE;
+    }
 }
 
 public enum Mod

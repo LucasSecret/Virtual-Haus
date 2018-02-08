@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿    using UnityEngine;
 
 public class MovableUIHandler : MonoBehaviour {
 
@@ -14,7 +14,7 @@ public class MovableUIHandler : MonoBehaviour {
     }
 
     void Update () {
-        if (inputManager.IsTriggerClicked() && rayCast.Hit())
+        if (inputManager.IsTriggerClicked() && rayCast.Hit() && dragFurniture.CanClick())
         {
             if (HitMoveButton())
             {
