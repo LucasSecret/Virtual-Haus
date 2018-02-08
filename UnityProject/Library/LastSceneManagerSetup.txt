@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/Virtual'Haus.unity
-  isLoaded: 1
-  isActive: 1

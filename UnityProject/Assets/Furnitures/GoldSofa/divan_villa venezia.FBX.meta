@@ -42,6 +42,19 @@ ModelImporter:
     100068: W8035
     100070: W8045
     100072: w8045
+    100074: Arch33_019_obj_006_MeshPart0
+    100076: Arch33_019_obj_006_MeshPart1
+    100078: Loft001_MeshPart0
+    100080: Loft001_MeshPart1
+    100082: Loft002_MeshPart0
+    100084: Loft002_MeshPart1
+    100086: Rectangle003_MeshPart0
+    100088: Rectangle003_MeshPart1
+    100090: Rectangle006_MeshPart0
+    100092: Rectangle006_MeshPart1
+    100094: w8045_MeshPart0
+    100096: w8045_MeshPart1
+    100098: w8045_MeshPart2
     400000: Arch33_019_obj_004
     400002: Arch33_019_obj_005
     400004: Arch33_019_obj_006
@@ -79,6 +92,19 @@ ModelImporter:
     400068: W8035
     400070: W8045
     400072: w8045
+    400074: Arch33_019_obj_006_MeshPart0
+    400076: Arch33_019_obj_006_MeshPart1
+    400078: Loft001_MeshPart0
+    400080: Loft001_MeshPart1
+    400082: Loft002_MeshPart0
+    400084: Loft002_MeshPart1
+    400086: Rectangle003_MeshPart0
+    400088: Rectangle003_MeshPart1
+    400090: Rectangle006_MeshPart0
+    400092: Rectangle006_MeshPart1
+    400094: w8045_MeshPart0
+    400096: w8045_MeshPart1
+    400098: w8045_MeshPart2
     2100000: 20 - Default
     2100002: DIRT
     2100004: 02 - Default
@@ -111,6 +137,19 @@ ModelImporter:
     2300048: W8035
     2300050: W8045
     2300052: w8045
+    2300054: Arch33_019_obj_006_MeshPart0
+    2300056: Arch33_019_obj_006_MeshPart1
+    2300058: Loft001_MeshPart0
+    2300060: Loft001_MeshPart1
+    2300062: Loft002_MeshPart0
+    2300064: Loft002_MeshPart1
+    2300066: Rectangle003_MeshPart0
+    2300068: Rectangle003_MeshPart1
+    2300070: Rectangle006_MeshPart0
+    2300072: Rectangle006_MeshPart1
+    2300074: w8045_MeshPart0
+    2300076: w8045_MeshPart1
+    2300078: w8045_MeshPart2
     3300000: Arch33_019_obj_004
     3300002: Arch33_019_obj_005
     3300004: Arch33_019_obj_006
@@ -138,6 +177,19 @@ ModelImporter:
     3300048: W8035
     3300050: W8045
     3300052: w8045
+    3300054: Arch33_019_obj_006_MeshPart0
+    3300056: Arch33_019_obj_006_MeshPart1
+    3300058: Loft001_MeshPart0
+    3300060: Loft001_MeshPart1
+    3300062: Loft002_MeshPart0
+    3300064: Loft002_MeshPart1
+    3300066: Rectangle003_MeshPart0
+    3300068: Rectangle003_MeshPart1
+    3300070: Rectangle006_MeshPart0
+    3300072: Rectangle006_MeshPart1
+    3300074: w8045_MeshPart0
+    3300076: w8045_MeshPart1
+    3300078: w8045_MeshPart2
     4300000: Object206
     4300002: Line016
     4300004: Loft001
@@ -165,6 +217,19 @@ ModelImporter:
     4300048: Object04
     4300050: Object05
     4300052: W697
+    4300054: Loft001_MeshPart0
+    4300056: Loft001_MeshPart1
+    4300058: Loft002_MeshPart0
+    4300060: Loft002_MeshPart1
+    4300062: Arch33_019_obj_006_MeshPart0
+    4300064: Arch33_019_obj_006_MeshPart1
+    4300066: Rectangle006_MeshPart0
+    4300068: Rectangle006_MeshPart1
+    4300070: Rectangle003_MeshPart0
+    4300072: Rectangle003_MeshPart1
+    4300074: w8045_MeshPart0
+    4300076: w8045_MeshPart1
+    4300078: w8045_MeshPart2
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -209,8 +274,6 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
-    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
