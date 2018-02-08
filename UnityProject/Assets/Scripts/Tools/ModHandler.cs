@@ -4,11 +4,13 @@ public class ModHandler : MonoBehaviour
 {
     private Mod mod;
     private InputManager inputManager;
+    private GameObject furnitureMenu;
 
     private void Start()
     {
         mod = Mod.EDITION;
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
+        furnitureMenu = GameObject.Find("FurnitureMenu");
     }
 
     private void Update()
@@ -19,14 +21,17 @@ public class ModHandler : MonoBehaviour
             if (menuTrackPadPos.x < 0 && menuTrackPadPos.y < 0)
             {
                 mod = Mod.REMOVE;
+                furnitureMenu.SetActive(false);
             }
             else if (menuTrackPadPos.x > 0 && menuTrackPadPos.y < 0)
             {
                 mod = Mod.UTILITIES;
+                furnitureMenu.SetActive(false);
             }
             else
             {
                 mod = Mod.EDITION;
+                furnitureMenu.SetActive(true);
             }
         }
 
