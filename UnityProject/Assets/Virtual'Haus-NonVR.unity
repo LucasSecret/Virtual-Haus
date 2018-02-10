@@ -566,24 +566,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &235063652 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100000, guid: a3d55d8c8fbd1874088fec8281a92a9e, type: 3}
-  m_PrefabInternal: {fileID: 1347884335}
---- !u!64 &235063656
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 235063652}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: a3d55d8c8fbd1874088fec8281a92a9e, type: 3}
 --- !u!4 &237381164 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4013984330526374, guid: 7ead2179933c59647a36eb8df010d958,
@@ -2031,64 +2013,82 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1294739127}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &1347884335
+--- !u!1001 &1399057115
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 400002, guid: a3d55d8c8fbd1874088fec8281a92a9e, type: 3}
+    - target: {fileID: 400002, guid: a95df088ccc36e649bb35a2b8e1f6fda, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: a3d55d8c8fbd1874088fec8281a92a9e, type: 3}
+    - target: {fileID: 400002, guid: a95df088ccc36e649bb35a2b8e1f6fda, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: a3d55d8c8fbd1874088fec8281a92a9e, type: 3}
+    - target: {fileID: 400002, guid: a95df088ccc36e649bb35a2b8e1f6fda, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: a3d55d8c8fbd1874088fec8281a92a9e, type: 3}
+    - target: {fileID: 400002, guid: a95df088ccc36e649bb35a2b8e1f6fda, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: a3d55d8c8fbd1874088fec8281a92a9e, type: 3}
+    - target: {fileID: 400002, guid: a95df088ccc36e649bb35a2b8e1f6fda, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: a3d55d8c8fbd1874088fec8281a92a9e, type: 3}
+    - target: {fileID: 400002, guid: a95df088ccc36e649bb35a2b8e1f6fda, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: a3d55d8c8fbd1874088fec8281a92a9e, type: 3}
+    - target: {fileID: 400002, guid: a95df088ccc36e649bb35a2b8e1f6fda, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: a3d55d8c8fbd1874088fec8281a92a9e, type: 3}
+    - target: {fileID: 400002, guid: a95df088ccc36e649bb35a2b8e1f6fda, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: a3d55d8c8fbd1874088fec8281a92a9e, type: 3}
-      propertyPath: m_Name
-      value: MozartHaus
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: a3d55d8c8fbd1874088fec8281a92a9e, type: 3}
+    - target: {fileID: 400002, guid: a95df088ccc36e649bb35a2b8e1f6fda, type: 3}
       propertyPath: m_LocalScale.x
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: a3d55d8c8fbd1874088fec8281a92a9e, type: 3}
+    - target: {fileID: 400002, guid: a95df088ccc36e649bb35a2b8e1f6fda, type: 3}
       propertyPath: m_LocalScale.y
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: a3d55d8c8fbd1874088fec8281a92a9e, type: 3}
+    - target: {fileID: 400002, guid: a95df088ccc36e649bb35a2b8e1f6fda, type: 3}
       propertyPath: m_LocalScale.z
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: a95df088ccc36e649bb35a2b8e1f6fda, type: 3}
+      propertyPath: m_Name
+      value: MozartHaus
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: a3d55d8c8fbd1874088fec8281a92a9e, type: 3}
+  m_ParentPrefab: {fileID: 100100000, guid: a95df088ccc36e649bb35a2b8e1f6fda, type: 3}
   m_IsPrefabParent: 0
+--- !u!1 &1399057116 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: a95df088ccc36e649bb35a2b8e1f6fda, type: 3}
+  m_PrefabInternal: {fileID: 1399057115}
+--- !u!64 &1399057117
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1399057116}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: a95df088ccc36e649bb35a2b8e1f6fda, type: 3}
 --- !u!1001 &1401100519
 Prefab:
   m_ObjectHideFlags: 0
