@@ -5,12 +5,14 @@ public class ModHandler : MonoBehaviour
     private Mod mod;
     private InputManager inputManager;
     private GameObject furnitureMenu;
+    private GameObject roomTpUi;
 
     private void Start()
     {
         mod = Mod.EDITION;
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
         furnitureMenu = GameObject.Find("FurnitureMenu");
+        roomTpUi = GameObject.Find("RoomTpUI");
     }
 
     private void Update()
@@ -22,16 +24,19 @@ public class ModHandler : MonoBehaviour
             {
                 mod = Mod.REMOVE;
                 furnitureMenu.SetActive(false);
+                roomTpUi.SetActive(false);
             }
             else if (menuTrackPadPos.x > 0 && menuTrackPadPos.y < 0)
             {
                 mod = Mod.UTILITIES;
                 furnitureMenu.SetActive(false);
+                roomTpUi.SetActive(true);
             }
             else
             {
                 mod = Mod.EDITION;
                 furnitureMenu.SetActive(true);
+                roomTpUi.SetActive(false);
             }
         }
 
