@@ -16,28 +16,33 @@ public class SavingManager : MonoBehaviour {
     private GameObject[] editableGameObjects;
 
     private static readonly string EDITABLE_TAG = "Editable";
-    private static string SAVING_DIRECTORY;
+    private static string SAVING_DIRECTORY = "/Saves";
     private static string SAVING_FILE = "test.save";
 
-    public void Start()
+    void Awake()
     {
-        SAVING_DIRECTORY = Application.dataPath + "/Saves";
+        SAVING_DIRECTORY = Application.dataPath + SAVING_DIRECTORY;
         editableGameObjects = GameObject.FindGameObjectsWithTag(EDITABLE_TAG);
     }
 
     /// <summary>
     /// load games objects data and place them on the scene.
     /// </summary>
-    public void LoadGameObjects()
+    /// <returns>boolean : true if savingID exist false elsewhere</returns>
+    public bool LoadGameObjects(string savingID)
     {
-        string savingPath = SAVING_DIRECTORY + '/' + SceneManager.GetActiveScene().name + '/' + SAVING_FILE;
+        string savingPath = SAVING_DIRECTORY + '/' + savingID;
+
         if (File.Exists(savingPath))
         {
             string data = File.ReadAllText(savingPath);
             SavedScene savedScene = JsonUtility.FromJson(data, typeof(SavedScene)) as SavedScene;
 
             PlaceGameObjects(savedScene);
+            return true;
         }
+
+        return false;
     }
     private void PlaceGameObjects(SavedScene savedScene)
     {
@@ -58,7 +63,7 @@ public class SavingManager : MonoBehaviour {
         CreateSavingDirectoryIfNotExist(savedScene.name);
 
         String saveID = GenerateFreeSaveID();
-        File.WriteAllText(SAVING_DIRECTORY + "/" + savedScene.name + "/" + saveID + ".save", JsonUtility.ToJson(savedScene));
+        File.WriteAllText(SAVING_DIRECTORY + "/" + saveID + ".save", JsonUtility.ToJson(savedScene));
 
         String[] directoriesName = GetDirectoriesName(SAVING_DIRECTORY);
         foreach (string directoryName in directoriesName)
