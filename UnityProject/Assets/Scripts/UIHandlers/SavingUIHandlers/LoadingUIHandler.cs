@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadingUI : MonoBehaviour {
+public class LoadingUIHandler : MonoBehaviour {
 
     private RayCast rayCast;
     private InputManager inputManager;
     private SavingManager savingManager;
+
+    private IDSelectorUIHandler idSelectorUIHandler;
 
     private bool canClick;
 
@@ -15,6 +17,7 @@ public class LoadingUI : MonoBehaviour {
         rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
         savingManager = GameObject.Find("SavingManager").GetComponent<SavingManager>();
+        idSelectorUIHandler = transform.GetChild(0).Find("IDSelectorUI").GetComponent<IDSelectorUIHandler>();
 
         canClick = true;
     }
@@ -24,18 +27,7 @@ public class LoadingUI : MonoBehaviour {
         {
             if (rayCast.GetHit().transform.name == "Load")
             {
-                string selectedID = "";
-                Transform idSelectorUI = transform.GetChild(0).Find("IDSelectorUI");
-
-                for (int i = 0; i < idSelectorUI.childCount; i++)
-                {
-                    if (idSelectorUI.GetChild(i).name == "LetterSelector")
-                    {
-                        selectedID += idSelectorUI.GetChild(i).Find("LetterView").GetComponent<Text>().text;
-                    }
-                }
-
-                savingManager.LoadGameObjects(selectedID); // TODO: Use return to display fail or success message                 
+                savingManager.LoadGameObjects(idSelectorUIHandler.GetCurrentID()); // TODO: Use return to display fail or success message                 
                 canClick = false;
             }
         }

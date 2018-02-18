@@ -158,7 +158,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224578904610125856}
-  - component: {fileID: 114864534893374272}
+  - component: {fileID: 114669082686250726}
   m_Layer: 0
   m_Name: IDSelectorUI
   m_TagString: Untagged
@@ -562,6 +562,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114669082686250726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1607175384165442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14341b7ce377d284f9b5559cd4e18abf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114713736324219310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -630,17 +641,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114864534893374272
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1607175384165442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fab299fc1c0cd004c86af4fdec27efcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114880361902320792
 MonoBehaviour:
   m_ObjectHideFlags: 1

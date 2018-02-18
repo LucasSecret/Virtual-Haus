@@ -16,13 +16,18 @@ public class SavingManager : MonoBehaviour {
     private GameObject[] editableGameObjects;
 
     private static readonly string EDITABLE_TAG = "Editable";
-    private static string SAVING_DIRECTORY = "/Saves";
-    private static string SAVING_FILE = "test.save";
+    private string SAVING_DIRECTORY;
+    private string currentSave = null;
 
     void Awake()
     {
-        SAVING_DIRECTORY = Application.dataPath + SAVING_DIRECTORY;
+        SAVING_DIRECTORY = Application.dataPath + "/Saves" + "/" + SceneManager.GetActiveScene().name;
         editableGameObjects = GameObject.FindGameObjectsWithTag(EDITABLE_TAG);
+    }
+
+    public string GetCurrentSaveID()
+    {
+        return currentSave;
     }
 
     /// <summary>
@@ -31,7 +36,10 @@ public class SavingManager : MonoBehaviour {
     /// <returns>boolean : true if savingID exist false elsewhere</returns>
     public bool LoadGameObjects(string savingID)
     {
+        currentSave = savingID;
         string savingPath = SAVING_DIRECTORY + '/' + savingID;
+
+        Debug.Log("test1");
 
         if (File.Exists(savingPath))
         {
@@ -39,6 +47,7 @@ public class SavingManager : MonoBehaviour {
             SavedScene savedScene = JsonUtility.FromJson(data, typeof(SavedScene)) as SavedScene;
 
             PlaceGameObjects(savedScene);
+            currentSave = savingID;
             return true;
         }
 
@@ -46,6 +55,7 @@ public class SavingManager : MonoBehaviour {
     }
     private void PlaceGameObjects(SavedScene savedScene)
     {
+        Debug.Log("test");
         foreach (SavedGameObject savedGameObject in savedScene.savedGameObjects)
         {
             GameObject gameObject = GameObject.Find(savedGameObject.title);
@@ -55,26 +65,23 @@ public class SavingManager : MonoBehaviour {
     }
 
     /// <summary>
+    /// Save each editable game objects on current save ID.
+    /// </summary>
+    public void UpdateCurrentSave()
+    {
+        SaveGameObjects(currentSave);
+    }
+    /// <summary>
     /// Save each editable game objects informations.
     /// </summary>
-    public void SaveGameObjects()
+    public void SaveGameObjects(string savingID)
     {
         SavedScene savedScene = new SavedScene(SceneManager.GetActiveScene().name, editableGameObjects);
         CreateSavingDirectoryIfNotExist(savedScene.name);
 
-        String saveID = GenerateFreeSaveID();
-        File.WriteAllText(SAVING_DIRECTORY + "/" + saveID + ".save", JsonUtility.ToJson(savedScene));
-
-        String[] directoriesName = GetDirectoriesName(SAVING_DIRECTORY);
-        foreach (string directoryName in directoriesName)
-        {
-            String[] filesName = GetFilesName(SAVING_DIRECTORY + "/" + directoryName);
-            foreach(string fileName in filesName)
-            {
-                Debug.Log(directoryName + " " + fileName);
-            }
-        }
+        File.WriteAllText(SAVING_DIRECTORY + "/" + savingID, JsonUtility.ToJson(savedScene));
     }
+
 
     /// <summary>
     /// Create current scene saving directory if not exist
@@ -84,8 +91,6 @@ public class SavingManager : MonoBehaviour {
     {
         if (!Directory.Exists(SAVING_DIRECTORY))
             Directory.CreateDirectory(SAVING_DIRECTORY);
-        if (!Directory.Exists(SAVING_DIRECTORY + '/' + directory))
-            Directory.CreateDirectory(SAVING_DIRECTORY + '/' + directory);
     }
     
     private String GenerateFreeSaveID()

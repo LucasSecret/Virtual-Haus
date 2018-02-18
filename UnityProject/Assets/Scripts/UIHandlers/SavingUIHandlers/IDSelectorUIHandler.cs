@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class IdSelectorUI : MonoBehaviour {
-
+public class IDSelectorUIHandler : MonoBehaviour
+{
     private RayCast rayCast;
     private InputManager inputManager;
 
-    private bool canClick;
+    private static bool canClick;
 
-    void Start ()
+    void Start()
     {
         rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
@@ -63,5 +63,30 @@ public class IdSelectorUI : MonoBehaviour {
         ascii = ascii % 26 + 65;
 
         return (char)ascii;
+    }
+
+    public string GetCurrentID()
+    {
+        string selectedID = "";
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).name == "LetterSelector")
+            {
+                selectedID += transform.GetChild(i).Find("LetterView").GetComponent<Text>().text;
+            }
+        }
+
+        return selectedID;
+    } 
+    public void SetCurrentID(string id)
+    {
+        for (int i = 0; i < id.Length; i++)
+        {
+            if (transform.GetChild(i).name == "LetterSelector")
+            {
+                transform.GetChild(i).Find("LetterView").GetComponent<Text>().text = id[i].ToString();
+            }
+        }
     }
 }
