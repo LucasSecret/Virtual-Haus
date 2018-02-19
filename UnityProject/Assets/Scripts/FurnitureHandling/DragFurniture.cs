@@ -100,6 +100,8 @@ public class DragFurniture : MonoBehaviour {
     public void RemoveSelectedObject()
     {
         furnitureSelected.transform.position = new Vector3(0, -50, 0);
+        networkManager.SendFurniturePosUpdate(furnitureSelected);
+
         furnitureSelected.GetComponent<Collider>().enabled = true;
         furnitureSelected = null;
 

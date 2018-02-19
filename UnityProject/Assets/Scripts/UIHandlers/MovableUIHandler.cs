@@ -6,14 +6,11 @@ public class MovableUIHandler : MonoBehaviour {
     private InputManager inputManager;
 
     private DragFurniture dragFurniture;
-    private ServerNetworkManager networkManager;
 
     void Start() {
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
         rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
         dragFurniture = GameObject.Find("EditionHandler").GetComponent<DragFurniture>();
-
-        networkManager = GameObject.Find("NetworkManager").GetComponent<ServerNetworkManager>();
     }
 
     void Update () {
@@ -26,7 +23,6 @@ public class MovableUIHandler : MonoBehaviour {
             else if (HitRemoveButton())
             {
                 dragFurniture.RemoveSelectedObject();
-                networkManager.SendFurniturePosUpdate(dragFurniture.GetFurnitureSelected());
             }
         }
     }
