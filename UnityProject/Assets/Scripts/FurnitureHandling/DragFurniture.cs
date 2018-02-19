@@ -11,6 +11,8 @@ public class DragFurniture : MonoBehaviour {
 
     private GameObject furnitureSelected;
 
+    private ServerNetworkManager networkManager;
+
     private bool isOnDrag = false;
     private bool isClicked = false;
     private bool canClick = true;
@@ -22,6 +24,8 @@ public class DragFurniture : MonoBehaviour {
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
         modHandler = GameObject.Find("ModHandler").GetComponent<ModHandler>();
         movableUIHandler = movableUI.GetComponent<MovableUIHandler>();
+
+        networkManager = GameObject.Find("NetworkManager").GetComponent<ServerNetworkManager>();
 
         isOnDrag = isClicked = false;
         canClick = true;
@@ -60,6 +64,7 @@ public class DragFurniture : MonoBehaviour {
             if (isOnDrag) // Move Game Object
             {
                 UpdateFurniturePosition(rayCast.GetHit());
+                networkManager.SendFurniturePosUpdate(furnitureSelected);
             }
 
             if (!canClick)

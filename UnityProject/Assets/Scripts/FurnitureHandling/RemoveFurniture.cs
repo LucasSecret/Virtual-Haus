@@ -8,12 +8,16 @@ public class RemoveFurniture : MonoBehaviour {
     private InputManager inputManager;
     private ModHandler modHandler;
 
+    private ServerNetworkManager networkManager;
+
     private bool canClick = true;
 
     void Start () {
         rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
         modHandler = GameObject.Find("ModHandler").GetComponent<ModHandler>();
+
+        networkManager = GameObject.Find("NetworkManager").GetComponent<ServerNetworkManager>();
     }
 
     void Update()
@@ -26,6 +30,7 @@ public class RemoveFurniture : MonoBehaviour {
                 {
                     canClick = false;
                     rayCast.GetHit().transform.position = new Vector3(0, -50, 0);
+                    networkManager.SendFurniturePosUpdate(rayCast.GetHit().transform.gameObject);
                 }
             }
         }

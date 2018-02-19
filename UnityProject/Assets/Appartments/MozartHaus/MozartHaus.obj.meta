@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: a95df088ccc36e649bb35a2b8e1f6fda
-timeCreated: 1518259344
+timeCreated: 1519053712
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -28,6 +28,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Sol
     second: {fileID: 2100000, guid: fe02b72d5be68cf4b92e1de568f81b92, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: defaultMat
+    second: {fileID: 2100000, guid: 67f312e75f36a4d4aacfdccf050e8bad, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
