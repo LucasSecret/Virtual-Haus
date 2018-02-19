@@ -15,14 +15,14 @@ public class SavingManager : MonoBehaviour {
 
     private GameObject[] editableGameObjects;
 
-    private static readonly string EDITABLE_TAG = "Editable";
+    private static readonly string FURNITURE_TAG = "Furniture";
     private string SAVING_DIRECTORY;
     private string currentSave = null;
 
     void Awake()
     {
         SAVING_DIRECTORY = Application.dataPath + "/Saves" + "/" + SceneManager.GetActiveScene().name;
-        editableGameObjects = GameObject.FindGameObjectsWithTag(EDITABLE_TAG);
+        editableGameObjects = GameObject.FindGameObjectsWithTag(FURNITURE_TAG);
     }
 
     public string GetCurrentSaveID()
