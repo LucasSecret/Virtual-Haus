@@ -50,7 +50,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4125856691473440}
   - component: {fileID: 33110457690074620}
-  - component: {fileID: 135298039406024762}
   - component: {fileID: 23001903360136240}
   m_Layer: 0
   m_Name: Sphere
@@ -68,7 +67,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4550539236358678}
   - component: {fileID: 33239560519705934}
-  - component: {fileID: 136799570022411230}
   - component: {fileID: 23975733667660946}
   m_Layer: 0
   m_Name: Capsule
@@ -214,28 +212,3 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1584567921620500}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!135 &135298039406024762
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1450862455582856}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &136799570022411230
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1584567921620500}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
