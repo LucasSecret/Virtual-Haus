@@ -48,7 +48,7 @@ public class ClientNetworkManager : MonoBehaviour {
     {
         AppartmentLoadingMessage msg = netMsg.ReadMessage<AppartmentLoadingMessage>();
 
-        GameObject appartment = Instantiate(Resources.Load("Appartments/MozartHaus/MozartHaus")) as GameObject;
+        GameObject appartment = Instantiate(Resources.Load<GameObject>("Appartments/" + msg.modelName + "/" + msg.modelName));
         appartment.transform.position = msg.appartmentPosition;
         appartment.transform.localScale = msg.appartmentScale;
 
@@ -58,17 +58,21 @@ public class ClientNetworkManager : MonoBehaviour {
 
     public void LoadFurnitures(NetworkMessage netMsg)
     {
-        Debug.Log("receive furnitures");
         FurnitureLoadingMessage msg = netMsg.ReadMessage<FurnitureLoadingMessage>();
-
-        PlaceFurniture(JsonUtility.FromJson<List<SavedGameObject>>(msg.jsonFurnitures));
+        PlaceFurniture(JsonUtility.FromJson<NewFurnituresInformations>(msg.jsonFurnitures));
 
         client.Send(VirtualHausMessageTypes.USER_READY, new EmptyMessage());
         status = ClientStatus.READY;
     }
-    private void PlaceFurniture(List<SavedGameObject> furnitures)
+    private void PlaceFurniture(NewFurnituresInformations furnitures)
     {
-        //TODO: Implement it
+        foreach (NewFurnitureInformations furniture in furnitures.furnitures)
+        {
+            GameObject instance = Instantiate(Resources.Load<GameObject>("Furnitures/Prefab/" + furniture.prefabName));
+            instance.name = furniture.furnitureName;
+            instance.transform.position = furniture.furniturePosition;
+            instance.transform.rotation = furniture.furnitureRotation;
+        }
     }
 
     private void UpdateUserPosition(NetworkMessage netMsg)

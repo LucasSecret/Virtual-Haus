@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -41,16 +42,17 @@ public class FurnitureLoadingMessage : MessageBase
 }
 
 [Serializable]
-public class SavedGameObject
+public class NewFurnitureInformations
 {
-    public string title;
-    public Vector3 position;
-    public Quaternion rotation;
+    public string furnitureName;
+    public string prefabName;
 
-    public SavedGameObject(string title, Transform transform)
-    {
-        this.title = title;
-        this.rotation = transform.rotation;
-        this.position = transform.position;
-    }
+    public Vector3 furniturePosition;
+    public Quaternion furnitureRotation;
+}
+
+[Serializable]
+public class NewFurnituresInformations
+{
+    public List<NewFurnitureInformations> furnitures;
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -37,4 +39,36 @@ public class AppartmentLoadingMessage : MessageBase
 public class FurnitureLoadingMessage : MessageBase
 {
     public string jsonFurnitures;
+}
+
+[Serializable]
+public class NewFurnitureInformations
+{
+    public string furnitureName;
+    public string prefabName;
+
+    public Vector3 furniturePosition;
+    public Quaternion furnitureRotation;
+}
+
+[Serializable]
+public class NewFurnituresInformations
+{
+    public List<NewFurnitureInformations> furnitures;
+
+    public NewFurnituresInformations()
+    {
+        furnitures = new List<NewFurnitureInformations>();
+
+        foreach (GameObject editableGameObject in GameObject.FindGameObjectsWithTag("Furniture"))
+        {
+            furnitures.Add(new NewFurnitureInformations()
+            {
+                furnitureName = editableGameObject.name,
+                prefabName = PrefabUtility.GetPrefabParent(editableGameObject).name,
+                furniturePosition = editableGameObject.transform.position,
+                furnitureRotation = editableGameObject.transform.rotation
+            });
+        }
+    }
 }
