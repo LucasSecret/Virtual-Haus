@@ -41,7 +41,7 @@ public class DragFurniture : MonoBehaviour {
             {
                 canClick = false;
 
-                if (rayCast.HitFurniture() && !isClicked) // Select Game Object
+                if (rayCast.HitFurniture() && !isClicked && !isOnDrag) // Select Game Object
                 {
                     furnitureSelected = GameObject.Find(rayCast.GetHit().transform.name);
                     DisplayMovableUIInFrontOfFurniture();
