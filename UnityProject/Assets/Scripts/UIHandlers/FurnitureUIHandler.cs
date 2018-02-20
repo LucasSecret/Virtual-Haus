@@ -19,7 +19,7 @@ public class FurnitureUIHandler : MonoBehaviour {
     private ModHandler modHandler;
     private RayCast rayCast;
     private DragFurniture dragFurniture;
-
+    private ThumbnailsHandler thumbnailsHandler;
 
     private float scrollViewHeight;
     private float rightSideHeight;
@@ -27,6 +27,7 @@ public class FurnitureUIHandler : MonoBehaviour {
     private float rightPartUIItemHeight;
 
     private double scrollStack;
+    private bool canClick;
 
 
     void Start() {
@@ -40,7 +41,9 @@ public class FurnitureUIHandler : MonoBehaviour {
         modHandler = GameObject.Find("ModHandler").GetComponent<ModHandler>();
         rayCast = GameObject.Find("PointerController").GetComponent<RayCast>();
         dragFurniture = GameObject.Find("EditionHandler").GetComponent<DragFurniture>();
-    
+        thumbnailsHandler = GameObject.Find("ThumbnailsHandler").GetComponent<ThumbnailsHandler>();
+        thumbnailsHandler.furnitures = furnitures;
+
         scrollStack = 0;
 
         CreateUI();
@@ -50,7 +53,15 @@ public class FurnitureUIHandler : MonoBehaviour {
     void Update()
     {
         Scroll();
-        Select();
+
+        if (canClick)
+        {
+            Select();
+        }
+        else
+        {
+            canClick = !inputManager.IsTriggerClicked();
+        }
     }
 
     private void Scroll()
@@ -92,6 +103,7 @@ public class FurnitureUIHandler : MonoBehaviour {
         if (!rayCast.Hit())
             return;
 
+        canClick = false;
         Transform hitObject = rayCast.GetHit().transform;
 
         if (hitObject.parent == leftSide.transform)
@@ -107,6 +119,7 @@ public class FurnitureUIHandler : MonoBehaviour {
 
     private void CreateUI()
     {
+        thumbnailsHandler.Init();
         UpdateLeftUIPart();
         UpdateRightUIPart(0);
     }
@@ -124,6 +137,7 @@ public class FurnitureUIHandler : MonoBehaviour {
     }
     private void UpdateRightUIPart(int index)
     {
+        thumbnailsHandler.CreateThumbnails(index);
         foreach (Transform child in rightSide.transform)
         {
             GameObject.Destroy(child.gameObject);
@@ -156,6 +170,7 @@ public class FurnitureUIHandler : MonoBehaviour {
             }
 
             temp.GetComponentInChildren<Text>().text = room.GetChild(i).name;
+            temp.GetComponentInChildren<RawImage>().texture = (Texture)UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/UIComponents/Thumbnails/" + room.GetChild(i).name + ".renderTexture", typeof(RenderTexture));
         }
     }
 }
