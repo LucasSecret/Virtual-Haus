@@ -27,6 +27,7 @@ public class FurnitureUIHandler : MonoBehaviour {
     private float rightPartUIItemHeight;
 
     private double scrollStack;
+    private bool canClick;
 
 
     void Start() {
@@ -52,7 +53,15 @@ public class FurnitureUIHandler : MonoBehaviour {
     void Update()
     {
         Scroll();
-        Select();
+
+        if (canClick)
+        {
+            Select();
+        }
+        else
+        {
+            canClick = !inputManager.IsTriggerClicked();
+        }
     }
 
     private void Scroll()
@@ -94,6 +103,7 @@ public class FurnitureUIHandler : MonoBehaviour {
         if (!rayCast.Hit())
             return;
 
+        canClick = false;
         Transform hitObject = rayCast.GetHit().transform;
 
         if (hitObject.parent == leftSide.transform)
