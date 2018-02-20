@@ -10,6 +10,7 @@ public class DragFurniture : MonoBehaviour {
     private MovableUIHandler movableUIHandler;
 
     private GameObject furnitureSelected;
+    private GameObject pointerController;
 
     private ServerNetworkManager networkManager;
 
@@ -26,6 +27,7 @@ public class DragFurniture : MonoBehaviour {
         movableUIHandler = movableUI.GetComponent<MovableUIHandler>();
 
         networkManager = GameObject.Find("NetworkManager").GetComponent<ServerNetworkManager>();
+        pointerController = GameObject.Find("PointerController");
 
         isOnDrag = isClicked = false;
         canClick = true;
@@ -39,7 +41,7 @@ public class DragFurniture : MonoBehaviour {
             {
                 canClick = false;
 
-                if (rayCast.HitFurniture() && !isClicked) // Select Game Object
+                if (rayCast.HitFurniture() && !isClicked && !isOnDrag) // Select Game Object
                 {
                     furnitureSelected = GameObject.Find(rayCast.GetHit().transform.name);
                     DisplayMovableUIInFrontOfFurniture();
@@ -121,8 +123,40 @@ public class DragFurniture : MonoBehaviour {
     private void UpdateFurniturePosition(RaycastHit hit)
     {
         Vector3 newPos = hit.point;
-        newPos.y = furnitureSelected.transform.localScale.y / 2;
 
+        if (hit.point.y > 0.1) // TODO: Compress
+        {
+            float yAngle = hit.transform.rotation.eulerAngles.y;
+
+            if ((yAngle <= 120 && yAngle >= 60) || (yAngle <= 300 && yAngle >= 240)) // Test Axis
+            {
+                float xSize = furnitureSelected.GetComponent<Renderer>().bounds.size.x;
+
+                if (hit.point.x > pointerController.transform.position.x) // Test Positif / Negatif
+                {
+                    newPos.x = newPos.x - xSize / 2;
+                }
+                else
+                {
+                    newPos.x = newPos.x + xSize / 2;
+                }
+            }
+            else if (yAngle <= 30 || yAngle >= 330 || (yAngle > 150 && yAngle <= 210)) // Test Axis
+            {
+                float zSize = furnitureSelected.GetComponent<Renderer>().bounds.size.z;
+
+                if (hit.point.z > pointerController.transform.position.z) // Test Positif / Negatif
+                {
+                    newPos.z = newPos.z - zSize / 2;
+                }
+                else
+                {
+                    newPos.z = newPos.z + zSize / 2;
+                }
+            }
+        }
+
+        newPos.y = furnitureSelected.transform.localScale.y / 2;
         furnitureSelected.transform.position = newPos;
     }
 
