@@ -10,15 +10,36 @@ public static class ThumbnailsHandler
     public static string thumbnailsPath = Application.dataPath + "/UIComponents/Thumbnails/";
     private static readonly int SIZE = 512;
 
+    private static RenderTexture renderTexture;
+    private static GameObject cameraGameObject;
+
     public static void CreateThumbnailsIfNotExist(GameObject furnitures)
     {
-        CleanThumbnailsFolder();
+        renderTexture = new RenderTexture(SIZE, SIZE, 24);
+        cameraGameObject = CreateCamera(renderTexture);
+
         for (int i = 0; i < furnitures.transform.childCount; i++)
         {
             CreateThumbnailsIfNotExistForRoom(furnitures, i);
         }
+
+        UnityEngine.Object.DestroyImmediate(cameraGameObject);
+        UnityEngine.Object.DestroyImmediate(renderTexture);
     }
 
+    private static GameObject CreateCamera(RenderTexture renderTexture)
+    {
+        GameObject cameraGameObject = new GameObject();
+
+        Camera camera = cameraGameObject.AddComponent<Camera>();
+        camera.aspect = 1.0f;
+        camera.clearFlags = CameraClearFlags.SolidColor;
+        camera.backgroundColor = new Color(0, 0, 0, 0);
+
+        camera.targetTexture = renderTexture;
+
+        return cameraGameObject;
+    }
     private static void CreateThumbnailsIfNotExistForRoom(GameObject furnitures, int roomIndex)
     {
         Transform room = furnitures.transform.GetChild(roomIndex);
@@ -26,37 +47,25 @@ public static class ThumbnailsHandler
 
         for (int i = 0; i < furnituresQuantity; i++)
         {
-            if (FurnitureThumbnailsExist(room.GetChild(i).name))
-            {
-                continue;
-            }
-
-            GameObject furnitureToRender = UnityEngine.Object.Instantiate(room.GetChild(i).gameObject);
-            GameObject cameraGameObject = new GameObject();
-
-            Camera camera = cameraGameObject.AddComponent<Camera>();
-            camera.aspect = 1.0f;
-            camera.clearFlags = CameraClearFlags.SolidColor;
-            camera.backgroundColor = new Color(0, 0, 0, 0);
-
-            PlaceGameObjectForScreenShot(furnitureToRender, cameraGameObject);
+            if (FurnitureThumbnailsExist(room.GetChild(i).name)) continue;
             
-            RenderTexture renderTexture = new RenderTexture(SIZE, SIZE, 24);
-            camera.targetTexture = renderTexture;
-            camera.Render();
+            GameObject furnitureToRender = UnityEngine.Object.Instantiate(room.GetChild(i).gameObject);
+            PlaceGameObjectForScreenShot(furnitureToRender, cameraGameObject);
 
-            RenderTexture.active = renderTexture;
-            Texture2D virtualPhoto = new Texture2D(SIZE, SIZE, TextureFormat.ARGB32, false);
-            virtualPhoto.ReadPixels(new Rect(0, 0, SIZE, SIZE), 0, 0);
-
-            RenderTexture.active = camera.targetTexture = null;
-
-            File.WriteAllBytes(thumbnailsPath + room.GetChild(i).name + ".png", virtualPhoto.EncodeToPNG());
+            File.WriteAllBytes(thumbnailsPath + room.GetChild(i).name + ".png", TakePicture().EncodeToPNG());
 
             UnityEngine.Object.DestroyImmediate(furnitureToRender);
-            UnityEngine.Object.DestroyImmediate(cameraGameObject);
-            UnityEngine.Object.DestroyImmediate(renderTexture);
         }
+    }
+    private static Texture2D TakePicture()
+    {
+        cameraGameObject.GetComponent<Camera>().Render();
+        RenderTexture.active = renderTexture;
+        Texture2D virtualPhoto = new Texture2D(SIZE, SIZE, TextureFormat.ARGB32, false);
+        virtualPhoto.ReadPixels(new Rect(0, 0, SIZE, SIZE), 0, 0);
+        RenderTexture.active = cameraGameObject.GetComponent<Camera>().targetTexture = null;
+
+        return virtualPhoto;
     }
 
     private static bool FurnitureThumbnailsExist(string name)
@@ -77,11 +86,5 @@ public static class ThumbnailsHandler
         lookAt.y += y;
 
         camera.transform.LookAt(lookAt);
-    }
-
-    private static void CleanThumbnailsFolder()
-    {
-        Directory.Delete("Assets/UIComponents/Thumbnails", true);
-        Directory.CreateDirectory("Assets/UIComponents/Thumbnails");
     }
 }
